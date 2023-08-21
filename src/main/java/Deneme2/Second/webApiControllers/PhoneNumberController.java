@@ -1,11 +1,11 @@
 package Deneme2.Second.webApiControllers;
 
+import Deneme2.Second.entities.customer.Customer;
+import Deneme2.Second.requests.UpdateCustomerRequest;
+import Deneme2.Second.requests.UpdatePhoneNumberRequest;
 import Deneme2.Second.service.PhoneNumberManager;
 import Deneme2.Second.entities.contact.PhoneNumber;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/phone")
@@ -21,6 +21,29 @@ public class PhoneNumberController {
         newNumber.setPhoneNumber(phoneNumber.getPhoneNumber());
         phoneNumberManager.addPhoneNumber(phoneNumber);
         System.out.println("Phone number added : " + phoneNumber);
+
+    }
+    @GetMapping("/{phoneNumberId}")
+    public PhoneNumber getPhoneNumberById(@PathVariable int phoneNumberId) {
+        PhoneNumber phoneNumber = phoneNumberManager.getById(phoneNumberId);
+        phoneNumberManager.checkIfphoneNumberIdExists(phoneNumberId);
+        return phoneNumber;
+    }
+    @PatchMapping("/{phoneNumberId}")
+    public void updatePhoneNumber(@PathVariable int phoneNumberId, @RequestBody UpdatePhoneNumberRequest updatePhoneNumber) {
+        phoneNumberManager.checkIfphoneNumberIdExists(phoneNumberId);
+        phoneNumberManager.updatePhoneNumber(phoneNumberId, updatePhoneNumber);
+    }
+    @DeleteMapping("/{phoneNumberId}")
+    public void deleteCustomer(@PathVariable int phoneNumberId) {
+        if (phoneNumberManager.checkIfphoneNumberIdExists(phoneNumberId)) {
+            phoneNumberManager.delete(phoneNumberId);
+            System.out.println("Phone Number " + getPhoneNumberById(phoneNumberId) + " successfully deleted!");
+        }
+        else
+            throw new RuntimeException("Phone Number Delete is Not Successful");
+
+
 
     }
 
