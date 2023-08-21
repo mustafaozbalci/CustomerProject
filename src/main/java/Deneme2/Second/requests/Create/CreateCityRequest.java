@@ -1,6 +1,6 @@
 package Deneme2.Second.requests.Create;
 
-import Deneme2.Second.entities.address.Country;
+import Deneme2.Second.entities.address.CountryEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 public class CreateCityRequest {
     private String cityName;
-    private Country country;
+    private CountryEntity countryEntity;
 }

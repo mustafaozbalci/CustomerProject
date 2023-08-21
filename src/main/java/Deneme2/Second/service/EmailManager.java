@@ -1,7 +1,7 @@
 package Deneme2.Second.service;
 
 import Deneme2.Second.dataAccess.EmailRepository;
-import Deneme2.Second.entities.contact.Email;
+import Deneme2.Second.entities.contact.EmailEntity;
 import Deneme2.Second.mapper.EmailMapper;
 import Deneme2.Second.requests.Create.CreateEmailRequest;
 import Deneme2.Second.requests.Update.UpdateEmailRequest;
@@ -32,32 +32,32 @@ public class EmailManager implements EmailService {
             return false;
         }
     }
-    public Email addEmail(CreateEmailRequest createEmailRequest) {
+    public EmailEntity addEmail(CreateEmailRequest createEmailRequest) {
         if (checkIfEmailAdressExists(createEmailRequest.getEmailAddress())) {
             throw new RuntimeException("This TC " + createEmailRequest.getEmailAddress() + " Already Exists");
         }
-        Email email = new Email();
-        BeanUtils.copyProperties(createEmailRequest, email);
-        return emailRepository.save(email);
+        EmailEntity emailEntity = new EmailEntity();
+        BeanUtils.copyProperties(createEmailRequest, emailEntity);
+        return emailRepository.save(emailEntity);
     }
-    public Email getEmailById(int emailId) {
+    public EmailEntity getEmailById(int emailId) {
         return emailRepository.findById(emailId).orElse(null);
     }
     public void delete(int emailId) {
         if (emailRepository.existsById(emailId)) {
-            Email emailToDelete = getEmailById(emailId);
+            EmailEntity emailEntityToDelete = getEmailById(emailId);
             emailRepository.deleteById(emailId);
         } else {
-            throw new RuntimeException("Email not found");
+            throw new RuntimeException("EmailEntity not found");
         }
     }
     public void updateEmail(int emailId, UpdateEmailRequest updateEmailRequest) {
-        Email existingEmail = getEmailById(emailId);
-        if (existingEmail != null) {
-            emailMapper.updateEmailFromRequest(updateEmailRequest, existingEmail);
-            emailRepository.save(existingEmail);
+        EmailEntity existingEmailEntity = getEmailById(emailId);
+        if (existingEmailEntity != null) {
+            emailMapper.updateEmailFromRequest(updateEmailRequest, existingEmailEntity);
+            emailRepository.save(existingEmailEntity);
         } else {
-            throw new RuntimeException("Email not found, Update failed ");
+            throw new RuntimeException("EmailEntity not found, Update failed ");
         }
     }
 }

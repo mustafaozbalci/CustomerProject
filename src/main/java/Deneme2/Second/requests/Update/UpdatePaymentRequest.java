@@ -1,6 +1,6 @@
 package Deneme2.Second.requests.Update;
 
-import Deneme2.Second.entities.customer.Customer;
+import Deneme2.Second.entities.customer.CustomerEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +17,6 @@ public class UpdatePaymentRequest {
     private String cardHolderName;
     private String expirationDate;
     private String cvv;
-    private Customer customer;
+    private CustomerEntity customerEntity;
 
 }

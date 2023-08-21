@@ -1,6 +1,6 @@
 package Deneme2.Second.mapper;
 
-import Deneme2.Second.entities.contact.Email;
+import Deneme2.Second.entities.contact.EmailEntity;
 import Deneme2.Second.requests.Update.UpdateEmailRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,6 +12,6 @@ public interface EmailMapper {
 
     EmailMapper INSTANCE = Mappers.getMapper(EmailMapper.class);
     @Mapping(target = "emailId", ignore = true)
-    void updateEmailFromRequest(UpdateEmailRequest updateEmailRequest, @MappingTarget Email email);
+    void updateEmailFromRequest(UpdateEmailRequest updateEmailRequest, @MappingTarget EmailEntity emailEntity);
 
 }

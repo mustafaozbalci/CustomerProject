@@ -1,9 +1,9 @@
 package Deneme2.Second.entities.customer;
 
-import Deneme2.Second.entities.address.Address;
-import Deneme2.Second.entities.contact.PhoneNumber;
-import Deneme2.Second.entities.payment.Payment;
-import Deneme2.Second.entities.store.Store;
+import Deneme2.Second.entities.address.AddressEntity;
+import Deneme2.Second.entities.contact.PhoneNumberEntity;
+import Deneme2.Second.entities.payment.PaymentEntity;
+import Deneme2.Second.entities.store.StoreEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +14,7 @@ import lombok.*;
 @ToString
 @Table(name = "customer", schema = "customer_application")
 @Entity
-public class Customer {
+public class CustomerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customerId")
@@ -30,15 +30,15 @@ public class Customer {
     private String customerTC;
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-    private Address address;
+    private AddressEntity addressEntity;
 
     @OneToOne(mappedBy = "customer")
-    private PhoneNumber phoneNumber;
+    private PhoneNumberEntity phoneNumberEntity;
 
     @OneToOne(mappedBy = "customer")
-    private Payment payment;
+    private PaymentEntity paymentEntity;
     @ManyToOne
     @JoinColumn(name = "store_id")
-    private Store store;
+    private StoreEntity storeEntity;
 
 }

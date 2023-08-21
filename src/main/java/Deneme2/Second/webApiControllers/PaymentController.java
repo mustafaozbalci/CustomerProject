@@ -1,6 +1,6 @@
 package Deneme2.Second.webApiControllers;
 
-import Deneme2.Second.entities.payment.Payment;
+import Deneme2.Second.entities.payment.PaymentEntity;
 import Deneme2.Second.requests.Create.CreatePaymentRequest;
 import Deneme2.Second.requests.Update.UpdatePaymentRequest;
 import Deneme2.Second.service.PaymentManager;
@@ -18,13 +18,13 @@ public class PaymentController {
     public void addPayment(@RequestBody CreatePaymentRequest createPaymentRequest){
         paymentManager.checkIfCardNumberExists(createPaymentRequest.getCardNumber());
         paymentManager.addPayment(createPaymentRequest);
-        System.out.println("Payment Card Number : " + createPaymentRequest.getCardNumber() + " Successfully Added.");
+        System.out.println("PaymentEntity Card Number : " + createPaymentRequest.getCardNumber() + " Successfully Added.");
 
     }
     @GetMapping("/{paymentId}")
-    public Payment getPayment(@PathVariable int paymentId){
-        Payment payment = paymentManager.getPaymentById(paymentId);
-        return payment;
+    public PaymentEntity getPayment(@PathVariable int paymentId){
+        PaymentEntity paymentEntity = paymentManager.getPaymentById(paymentId);
+        return paymentEntity;
     }
     @PatchMapping("/{paymentId}")
     public void updatePayment(@PathVariable int paymentId, @RequestBody UpdatePaymentRequest updatePaymentRequest) {

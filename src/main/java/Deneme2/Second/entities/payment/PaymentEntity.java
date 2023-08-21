@@ -1,6 +1,6 @@
 package Deneme2.Second.entities.payment;
 
-import Deneme2.Second.entities.customer.Customer;
+import Deneme2.Second.entities.customer.CustomerEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @Table(name = "payment", schema = "customer_application")
 @Entity
-public class Payment {
+public class PaymentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "paymentId")
@@ -30,6 +30,6 @@ public class Payment {
     private double paymentAmount;
     @OneToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "customerId")
-    private Customer customer;
+    private CustomerEntity customerEntity;
 
 }

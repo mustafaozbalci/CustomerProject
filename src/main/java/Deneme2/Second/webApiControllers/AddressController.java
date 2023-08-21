@@ -1,7 +1,7 @@
 package Deneme2.Second.webApiControllers;
 
 import Deneme2.Second.dataAccess.CityRepository;
-import Deneme2.Second.entities.address.Address;
+import Deneme2.Second.entities.address.AddressEntity;
 import Deneme2.Second.requests.Create.CreateAddressRequest;
 import Deneme2.Second.requests.Update.UpdateAddressRequest;
 import Deneme2.Second.service.AddressManager;
@@ -19,11 +19,11 @@ public class AddressController {
     }
 
     @PostMapping
-    public Address createAddress(@RequestBody CreateAddressRequest request) {
+    public AddressEntity createAddress(@RequestBody CreateAddressRequest request) {
         return addressManager.createAddress(request);
     }
     @GetMapping("/{addressId}")
-    public Address getAddressById(@PathVariable int addressId) {
+    public AddressEntity getAddressById(@PathVariable int addressId) {
         return addressManager.getAddressById(addressId);
     }
 

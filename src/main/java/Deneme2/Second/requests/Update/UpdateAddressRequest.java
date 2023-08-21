@@ -1,8 +1,8 @@
 package Deneme2.Second.requests.Update;
 
-import Deneme2.Second.entities.address.City;
-import Deneme2.Second.entities.address.Country;
-import Deneme2.Second.entities.customer.Customer;
+import Deneme2.Second.entities.address.CityEntity;
+import Deneme2.Second.entities.address.CountryEntity;
+import Deneme2.Second.entities.customer.CustomerEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,16 +14,16 @@ import lombok.Setter;
 @Getter
 public class UpdateAddressRequest {
     private int addressId;
-    private Customer customer;
-    private Country country;
-    private City city;
+    private CustomerEntity customerEntity;
+    private CountryEntity countryEntity;
+    private CityEntity cityEntity;
 }
 //      JSON EXAMPLE FOR UPDATE ADRESS
 //      {
-//        "country": {
+//        "countryEntity": {
 //        "countryId": 22
 //        },
-//        "city": {
+//        "cityEntity": {
 //        "cityId": 49
 //        }
 //        }

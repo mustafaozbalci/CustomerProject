@@ -1,6 +1,6 @@
 package Deneme2.Second.webApiControllers;
 
-import Deneme2.Second.entities.contact.PhoneNumber;
+import Deneme2.Second.entities.contact.PhoneNumberEntity;
 import Deneme2.Second.requests.Update.UpdatePhoneNumberRequest;
 import Deneme2.Second.service.PhoneNumberManager;
 import org.springframework.web.bind.annotation.*;
@@ -14,18 +14,18 @@ public class PhoneNumberController {
         this.phoneNumberManager = phoneNumberManager;
     }
     @PostMapping
-    public void addPhoneNumber(@RequestBody PhoneNumber phoneNumber){
-        PhoneNumber newNumber = new PhoneNumber();
-        newNumber.setPhoneNumber(phoneNumber.getPhoneNumber());
-        phoneNumberManager.addPhoneNumber(phoneNumber);
-        System.out.println("Phone number added : " + phoneNumber);
+    public void addPhoneNumber(@RequestBody PhoneNumberEntity phoneNumberEntity){
+        PhoneNumberEntity newNumber = new PhoneNumberEntity();
+        newNumber.setPhoneNumber(phoneNumberEntity.getPhoneNumber());
+        phoneNumberManager.addPhoneNumber(phoneNumberEntity);
+        System.out.println("Phone number added : " + phoneNumberEntity);
 
     }
     @GetMapping("/{phoneNumberId}")
-    public PhoneNumber getPhoneNumberById(@PathVariable int phoneNumberId) {
-        PhoneNumber phoneNumber = phoneNumberManager.getPhoneNumberById(phoneNumberId);
+    public PhoneNumberEntity getPhoneNumberById(@PathVariable int phoneNumberId) {
+        PhoneNumberEntity phoneNumberEntity = phoneNumberManager.getPhoneNumberById(phoneNumberId);
         phoneNumberManager.checkIfphoneNumberIdExists(phoneNumberId);
-        return phoneNumber;
+        return phoneNumberEntity;
     }
     @PatchMapping("/{phoneNumberId}")
     public void updatePhoneNumber(@PathVariable int phoneNumberId, @RequestBody UpdatePhoneNumberRequest updatePhoneNumber) {

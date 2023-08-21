@@ -1,41 +1,34 @@
 package Deneme2.Second.webApiControllers;
 
-import Deneme2.Second.entities.customer.Customer;
+import Deneme2.Second.entities.customer.CustomerEntity;
 import Deneme2.Second.requests.Create.CreateCustomerRequest;
 import Deneme2.Second.requests.Update.UpdateCustomerRequest;
 import Deneme2.Second.service.AddressManager;
 import Deneme2.Second.service.CustomerManager;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping(path = "/api/customer")
 public class CustomerController {
     private final CustomerManager customerManager;
     private final AddressManager addressManager;
-
-    @Autowired
-    //Autowired ile üstteki service objesini consturctor ile bağlantılı hale getirdik.
-    public CustomerController(CustomerManager customerManager, AddressManager addressManager) {
-
-        this.customerManager = customerManager;
-
-        this.addressManager = addressManager;
-    }
 
     @PostMapping
     public void addCustomer(@RequestBody CreateCustomerRequest createCustomerRequest) {
         if (!customerManager.checkIfTCExists(createCustomerRequest.getCustomerTC())) {
             customerManager.addCustomer(createCustomerRequest);
 
+
         }
     }
 
     @GetMapping("/{customerId}")
-    public Customer getCustomerById(@PathVariable int customerId) {
-        Customer customer = customerManager.getById(customerId);
+    public CustomerEntity getCustomerById(@PathVariable int customerId) {
+        CustomerEntity customerEntity = customerManager.getById(customerId);
         customerManager.checkIfIdExists(customerId);
-        return customer;
+        return customerEntity;
     }
 
     @PatchMapping("/{customerId}")

@@ -1,6 +1,6 @@
 package Deneme2.Second.webApiControllers;
 
-import Deneme2.Second.entities.contact.Email;
+import Deneme2.Second.entities.contact.EmailEntity;
 import Deneme2.Second.requests.Create.CreateEmailRequest;
 import Deneme2.Second.requests.Update.UpdateEmailRequest;
 import Deneme2.Second.service.EmailManager;
@@ -18,15 +18,15 @@ public class EmailController {
     public void addEmail(@RequestBody CreateEmailRequest createEmailRequest) {
         if (!emailManager.checkIfEmailAdressExists(createEmailRequest.getEmailAddress())) {
             emailManager.addEmail(createEmailRequest);
-            System.out.println("Adding Email " + createEmailRequest.getEmailAddress() + " Successfully...");
+            System.out.println("Adding EmailEntity " + createEmailRequest.getEmailAddress() + " Successfully...");
 
         }
     }
 
     @GetMapping("/{emailId}")
-    public Email getEmailById(@PathVariable int emailId) {
-        Email email = emailManager.getEmailById(emailId);
-        return email;
+    public EmailEntity getEmailById(@PathVariable int emailId) {
+        EmailEntity emailEntity = emailManager.getEmailById(emailId);
+        return emailEntity;
     }
 
     @PatchMapping("/{emailId}")

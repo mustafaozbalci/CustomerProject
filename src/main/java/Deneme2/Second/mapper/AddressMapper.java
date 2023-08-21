@@ -1,6 +1,6 @@
 package Deneme2.Second.mapper;
 
-import Deneme2.Second.entities.address.Address;
+import Deneme2.Second.entities.address.AddressEntity;
 import Deneme2.Second.requests.Update.UpdateAddressRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,5 +13,5 @@ public interface AddressMapper {
     @Mapping(target = "addressId", ignore = true)
     @Mapping(target = "country.countryId", source = "request.country.countryId")
     @Mapping(target = "city.cityId", source = "request.city.cityId")
-    void updateAddressFromRequest(UpdateAddressRequest request, @MappingTarget Address address);
+    void updateAddressFromRequest(UpdateAddressRequest request, @MappingTarget AddressEntity addressEntity);
 }

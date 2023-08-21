@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 @Table(name = "stock", schema = "customer_application")
 @Entity
-public class Stock {
+public class StockEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "stockId")
@@ -18,13 +18,9 @@ public class Stock {
     @Column(name = "quantity")
     private int quantity;
 
-    @OneToOne
-    @JoinColumn(name = "store_id")
-    private Store store;
+    @OneToOne(mappedBy = "stock", cascade = CascadeType.ALL)
+    private StoreEntity storeEntity;
 
-    @OneToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
 
 
 }

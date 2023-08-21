@@ -1,7 +1,7 @@
 package Deneme2.Second.service;
 
+import Deneme2.Second.entities.customer.CustomerEntity;
 import Deneme2.Second.serviceAbstracts.CustomerService;
-import Deneme2.Second.entities.customer.Customer;
 import Deneme2.Second.requests.Create.CreateCustomerRequest;
 import Deneme2.Second.requests.Update.UpdateCustomerRequest;
 import Deneme2.Second.dataAccess.AddressRepository;
@@ -22,46 +22,46 @@ public class CustomerManager implements CustomerService {
         this.customerMapper = customerMapper;
     }
     @Transactional
-    public Customer addCustomer(CreateCustomerRequest createCustomerRequest) {
+    public CustomerEntity addCustomer(CreateCustomerRequest createCustomerRequest) {
         if (checkIfTCExists(createCustomerRequest.getCustomerTC())) {
             throw new RuntimeException("This TC " + createCustomerRequest.getCustomerTC() + " Already Exists");
         }
 
-        Customer customer = new Customer();
-        BeanUtils.copyProperties(createCustomerRequest, customer);
-        return customerRepository.save(customer);
+        CustomerEntity customerEntity = new CustomerEntity();
+        BeanUtils.copyProperties(createCustomerRequest, customerEntity);
+        return customerRepository.save(customerEntity);
     }
 
 
 
 
     public void updateCustomer(int customerId, UpdateCustomerRequest updateCustomerRequest) {
-        Customer existingCustomer = getById(customerId);
+        CustomerEntity existingCustomerEntity = getById(customerId);
 
-        if (existingCustomer != null) {
-            customerMapper.updateCustomerFromRequest(updateCustomerRequest, existingCustomer);
-            customerRepository.save(existingCustomer);
+        if (existingCustomerEntity != null) {
+            customerMapper.updateCustomerFromRequest(updateCustomerRequest, existingCustomerEntity);
+            customerRepository.save(existingCustomerEntity);
         } else {
-            throw new RuntimeException("Customer not found");
+            throw new RuntimeException("CustomerEntity not found");
         }
     }
 
-    public Customer getById(int id) {
+    public CustomerEntity getById(int id) {
         return customerRepository.findById(id).orElse(null);
     }
     public void delete(int id) {
         if (customerRepository.existsById(id)) {
-            Customer customerToDelete = getById(id);
+            CustomerEntity customerEntityToDelete = getById(id);
             customerRepository.deleteById(id);
         } else {
-            throw new RuntimeException("Customer not found");
+            throw new RuntimeException("CustomerEntity not found");
         }
     }
 
 
-    public Customer getACustomer(){
-        Customer customer = customerRepository.getOne(getACustomer().getCustomerId());
-        return customer;
+    public CustomerEntity getACustomer(){
+        CustomerEntity customerEntity = customerRepository.getOne(getACustomer().getCustomerId());
+        return customerEntity;
     }
     public boolean checkIfIdExists(int id){
         if(customerRepository.existsById(id))

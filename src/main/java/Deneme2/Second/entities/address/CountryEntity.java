@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @Table(name = "country", schema = "customer_application")
 @Entity
-public class Country {
+public class CountryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "countryId")
@@ -24,8 +24,8 @@ public class Country {
     private String countryName;
 
     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
-    private List<Address> addresses;
+    private List<AddressEntity> addressEntities;
 
     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
-    private List<City> cities;
+    private List<CityEntity> cities;
 }

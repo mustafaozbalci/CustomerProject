@@ -1,7 +1,7 @@
 package Deneme2.Second.service;
 
 import Deneme2.Second.dataAccess.PaymentRepository;
-import Deneme2.Second.entities.payment.Payment;
+import Deneme2.Second.entities.payment.PaymentEntity;
 import Deneme2.Second.mapper.PaymentMapper;
 import Deneme2.Second.requests.Create.CreatePaymentRequest;
 import Deneme2.Second.requests.Update.UpdatePaymentRequest;
@@ -38,33 +38,33 @@ public class PaymentManager implements PaymentService {
             return true;
         return false;
     }
-    public Payment addPayment(CreatePaymentRequest createPaymentRequest) {
+    public PaymentEntity addPayment(CreatePaymentRequest createPaymentRequest) {
         if (checkIfCardNumberExists(createPaymentRequest.getCardNumber())) {
             throw new RuntimeException("This Card Number " + createPaymentRequest.getCardNumber() + " Already Exists");
         }
-        Payment payment = new Payment();
-        BeanUtils.copyProperties(createPaymentRequest, payment);
-        return paymentRepository.save(payment);
+        PaymentEntity paymentEntity = new PaymentEntity();
+        BeanUtils.copyProperties(createPaymentRequest, paymentEntity);
+        return paymentRepository.save(paymentEntity);
     }
-    public Payment getPaymentById(int paymentId) {
+    public PaymentEntity getPaymentById(int paymentId) {
         return paymentRepository.findById(paymentId).orElse(null);
     }
 
     public void delete(int paymentId) {
         if (paymentRepository.existsByPaymentId(paymentId)) {
-            Payment paymentToDelete = getPaymentById(paymentId);
-            paymentRepository.delete(paymentToDelete);
+            PaymentEntity paymentEntityToDelete = getPaymentById(paymentId);
+            paymentRepository.delete(paymentEntityToDelete);
         } else {
-            throw new RuntimeException("Payment ID : " + paymentId + " not found");
+            throw new RuntimeException("PaymentEntity ID : " + paymentId + " not found");
         }
     }
     public void updatePayment(int paymentId, UpdatePaymentRequest updatePaymentRequest) {
-        Payment existingPayment = getPaymentById(paymentId);
-        if (existingPayment != null) {
-            paymentMapper.UpdatePaymentByRequest(updatePaymentRequest, existingPayment);
-            paymentRepository.save(existingPayment);
+        PaymentEntity existingPaymentEntity = getPaymentById(paymentId);
+        if (existingPaymentEntity != null) {
+            paymentMapper.UpdatePaymentByRequest(updatePaymentRequest, existingPaymentEntity);
+            paymentRepository.save(existingPaymentEntity);
         } else {
-            throw new RuntimeException("Payment not found, Update failed ");
+            throw new RuntimeException("PaymentEntity not found, Update failed ");
         }
     }
 }

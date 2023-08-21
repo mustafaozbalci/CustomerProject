@@ -1,4 +1,5 @@
 package Deneme2.Second.entities.store;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +10,7 @@ import lombok.*;
 @ToString
 @Table(name = "product", schema = "customer_application")
 @Entity
-public class Product {
+public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "productId")
@@ -21,11 +22,11 @@ public class Product {
     @Column(name = "price")
     private double price;
 
-    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
-    private Stock stock;
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "stock_id", referencedColumnName = "stockId")
+    private StockEntity stockEntity;
 
-    @ManyToOne
-    @JoinColumn(name = "store_id")
-    private Store store;
-
+    @Transient
+    private int stockId;
 }

@@ -1,6 +1,6 @@
 package Deneme2.Second.entities.contact;
 
-import Deneme2.Second.entities.customer.Customer;
+import Deneme2.Second.entities.customer.CustomerEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @Table(name = "email", schema = "customer_application")
 @Entity
-public class Email {
+public class EmailEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "emailId")
@@ -24,6 +24,6 @@ public class Email {
 
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "customerId")
-    private Customer customer;
+    private CustomerEntity customerEntity;
 
 }

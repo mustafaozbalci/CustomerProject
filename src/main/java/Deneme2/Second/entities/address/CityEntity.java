@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @Table(name = "city", schema = "customer_application")
 @Entity
-public class City {
+public class CityEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cityId")
@@ -25,5 +25,5 @@ public class City {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "country_id", referencedColumnName = "countryId")
-    private Country country;
+    private CountryEntity countryEntity;
 }

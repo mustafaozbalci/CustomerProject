@@ -3,9 +3,9 @@ package Deneme2.Second.service;
 import Deneme2.Second.dataAccess.AddressRepository;
 import Deneme2.Second.dataAccess.CityRepository;
 import Deneme2.Second.dataAccess.CountryRepository;
-import Deneme2.Second.entities.address.Address;
-import Deneme2.Second.entities.address.City;
-import Deneme2.Second.entities.address.Country;
+import Deneme2.Second.entities.address.AddressEntity;
+import Deneme2.Second.entities.address.CityEntity;
+import Deneme2.Second.entities.address.CountryEntity;
 import Deneme2.Second.mapper.AddressMapper;
 import Deneme2.Second.requests.Create.CreateAddressRequest;
 import Deneme2.Second.requests.Create.CreateCityRequest;
@@ -30,50 +30,50 @@ public class AddressManager implements AdressService {
         this.addressMapper = addressMapper;
     }
 
-    public Address createAddress(CreateAddressRequest request) {
-        Address address = new Address();
+    public AddressEntity createAddress(CreateAddressRequest request) {
+        AddressEntity addressEntity = new AddressEntity();
 
         CreateCountryRequest countryRequest = request.getCountryRequest();
         String countryName = countryRequest.getCountryName();
-        Country country;
+        CountryEntity countryEntity;
 
         CreateCityRequest createCityRequest = request.getCityRequest();
         String cityName = createCityRequest.getCityName();
-        City city;
+        CityEntity cityEntity;
 
         if (countryRepository.existsByCountryName(countryName)) {
-            country = countryRepository.findByCountryName(countryName);
+            countryEntity = countryRepository.findByCountryName(countryName);
         } else {
-            country = new Country();
-            country.setCountryName(countryName);
-            country = countryRepository.save(country);
+            countryEntity = new CountryEntity();
+            countryEntity.setCountryName(countryName);
+            countryEntity = countryRepository.save(countryEntity);
         }
 
         if (cityRepository.existsByCityName(cityName)) {
-            city = cityRepository.findByCityName(cityName);
+            cityEntity = cityRepository.findByCityName(cityName);
         } else {
-            city = new City();
-            city.setCityName(cityName);
-            city.setCountry(country);
-            city = cityRepository.save(city);
+            cityEntity = new CityEntity();
+            cityEntity.setCityName(cityName);
+            cityEntity.setCountryEntity(countryEntity);
+            cityEntity = cityRepository.save(cityEntity);
         }
 
-        address.setCountry(country);
-        address.setCity(city);
+        addressEntity.setCountryEntity(countryEntity);
+        addressEntity.setCityEntity(cityEntity);
 
-        return addressRepository.save(address);
+        return addressRepository.save(addressEntity);
     }
 
-    public Address getAddressById(int addressId) {
+    public AddressEntity getAddressById(int addressId) {
         return addressRepository.findById(addressId).orElse(null);
     }
 
     public void delete(int addressId) {
         if (addressRepository.existsById(addressId)) {
-            Address addressToDelete = getAddressById(addressId);
+            AddressEntity addressEntityToDelete = getAddressById(addressId);
             addressRepository.deleteById(addressId);
         } else {
-            throw new RuntimeException("Address not found");
+            throw new RuntimeException("AddressEntity not found");
         }
     }
 
@@ -92,13 +92,13 @@ public class AddressManager implements AdressService {
     }
 
     public void updateAddress(int addressId, UpdateAddressRequest updateAddressRequest) {
-        Address existingAddress = getAddressById(addressId);
+        AddressEntity existingAddressEntity = getAddressById(addressId);
 
-        if (existingAddress != null) {
-            addressMapper.updateAddressFromRequest(updateAddressRequest, existingAddress);
-            addressRepository.save(existingAddress);
+        if (existingAddressEntity != null) {
+            addressMapper.updateAddressFromRequest(updateAddressRequest, existingAddressEntity);
+            addressRepository.save(existingAddressEntity);
         } else {
-            throw new RuntimeException("Address not found");
+            throw new RuntimeException("AddressEntity not found");
         }
     }
 }
