@@ -1,4 +1,4 @@
-package Deneme2.Second.Service;
+package Deneme2.Second.service;
 
 import Deneme2.Second.entities.contact.PhoneNumber;
 import Deneme2.Second.dataAccess.PhoneNumberRepository;

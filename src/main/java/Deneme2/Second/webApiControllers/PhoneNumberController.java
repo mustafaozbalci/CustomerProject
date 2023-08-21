@@ -1,6 +1,6 @@
 package Deneme2.Second.webApiControllers;
 
-import Deneme2.Second.Service.PhoneNumberManager;
+import Deneme2.Second.service.PhoneNumberManager;
 import Deneme2.Second.entities.contact.PhoneNumber;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

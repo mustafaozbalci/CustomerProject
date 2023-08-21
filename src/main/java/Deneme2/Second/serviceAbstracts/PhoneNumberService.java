@@ -1,4 +1,4 @@
-package Deneme2.Second.Serviceabstracts;
+package Deneme2.Second.serviceAbstracts;
 
 public interface PhoneNumberService {
 }
