@@ -37,7 +37,7 @@ public class EmailController {
         + updateEmailRequest.getEmailAddress());
     }
     @DeleteMapping("/{emailId}")
-    public void deleteEmail(int emailId){
+    public void deleteEmail(@PathVariable int emailId){
         if (emailManager.checkIfEmailIdExists(emailId))
             emailManager.delete(emailId);
         else
