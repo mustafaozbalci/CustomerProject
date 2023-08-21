@@ -1,7 +1,7 @@
 package Deneme2.Second.entities.customer;
 
-import Deneme2.Second.entities.contact.PhoneNumber;
 import Deneme2.Second.entities.address.Address;
+import Deneme2.Second.entities.contact.PhoneNumber;
 import Deneme2.Second.entities.payment.Payment;
 import Deneme2.Second.entities.store.Store;
 import jakarta.persistence.*;

@@ -15,3 +15,11 @@ public class UpdatePhoneNumberRequest {
     private String phoneNumber;
     private Customer customer;
 }
+/**
+ * JSON EXAMPLE FOR UPDATE PHONE NUMBER
+ * localhost:8080/api/phone/phoneNumberId
+ * {{
+ *     "phoneNumber": 6549821985
+ * }}
+ */
+

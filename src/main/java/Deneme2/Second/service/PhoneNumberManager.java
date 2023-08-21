@@ -1,7 +1,7 @@
 package Deneme2.Second.service;
 
-import Deneme2.Second.entities.contact.PhoneNumber;
 import Deneme2.Second.dataAccess.PhoneNumberRepository;
+import Deneme2.Second.entities.contact.PhoneNumber;
 import Deneme2.Second.mapper.PhoneNumberMapper;
 import Deneme2.Second.requests.UpdatePhoneNumberRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +26,11 @@ public class PhoneNumberManager {
             return phoneNumberRepository.save(phoneNumber);
         }
     }
-    public PhoneNumber getById(int phoneNumberId) {
+    public PhoneNumber getPhoneNumberById(int phoneNumberId) {
         return phoneNumberRepository.findById(phoneNumberId).orElse(null);
     }
     public void updatePhoneNumber(int phoneNumberId, UpdatePhoneNumberRequest updatePhoneNumberRequest) {
-        PhoneNumber existingPhoneNumber = getById(phoneNumberId);
+        PhoneNumber existingPhoneNumber = getPhoneNumberById(phoneNumberId);
 
         if (existingPhoneNumber != null) {
             phoneNumberMapper.updatePhoneNumberFromRequest(updatePhoneNumberRequest, existingPhoneNumber);
@@ -41,18 +41,13 @@ public class PhoneNumberManager {
     }
     public void delete(int phoneNumberId) {
         if (phoneNumberRepository.existsById(phoneNumberId)) {
-            PhoneNumber phoneToDelete = getById(phoneNumberId);
+            PhoneNumber phoneToDelete = getPhoneNumberById(phoneNumberId);
             phoneNumberRepository.deleteById(phoneNumberId);
         } else {
             throw new RuntimeException("Phone Number not found");
         }
     }
 
-
-    public PhoneNumber getAPhoneNumber(){
-        PhoneNumber phoneNumber = phoneNumberRepository.getOne(getAPhoneNumber().getPhoneNumberId());
-        return phoneNumber;
-    }
     public boolean checkIfphoneNumberIdExists(int phoneNumberId){
         if(phoneNumberRepository.existsById(phoneNumberId))
             return true;

@@ -1,12 +1,10 @@
 package Deneme2.Second.webApiControllers;
 
-import Deneme2.Second.entities.customer.Customer;
-import Deneme2.Second.requests.UpdateAddressRequest;
-import Deneme2.Second.requests.UpdateCustomerRequest;
-import Deneme2.Second.service.AddressManager;
+import Deneme2.Second.dataAccess.CityRepository;
 import Deneme2.Second.entities.address.Address;
 import Deneme2.Second.requests.CreateAddressRequest;
-import Deneme2.Second.dataAccess.CityRepository;
+import Deneme2.Second.requests.UpdateAddressRequest;
+import Deneme2.Second.service.AddressManager;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,7 +24,7 @@ public class AddressController {
     }
     @GetMapping("/{addressId}")
     public Address getAddressById(@PathVariable int addressId) {
-        return addressManager.getById(addressId);
+        return addressManager.getAddressById(addressId);
     }
 
     @DeleteMapping("/{addressId}")

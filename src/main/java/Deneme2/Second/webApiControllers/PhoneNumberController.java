@@ -1,10 +1,8 @@
 package Deneme2.Second.webApiControllers;
 
-import Deneme2.Second.entities.customer.Customer;
-import Deneme2.Second.requests.UpdateCustomerRequest;
+import Deneme2.Second.entities.contact.PhoneNumber;
 import Deneme2.Second.requests.UpdatePhoneNumberRequest;
 import Deneme2.Second.service.PhoneNumberManager;
-import Deneme2.Second.entities.contact.PhoneNumber;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,7 +23,7 @@ public class PhoneNumberController {
     }
     @GetMapping("/{phoneNumberId}")
     public PhoneNumber getPhoneNumberById(@PathVariable int phoneNumberId) {
-        PhoneNumber phoneNumber = phoneNumberManager.getById(phoneNumberId);
+        PhoneNumber phoneNumber = phoneNumberManager.getPhoneNumberById(phoneNumberId);
         phoneNumberManager.checkIfphoneNumberIdExists(phoneNumberId);
         return phoneNumber;
     }

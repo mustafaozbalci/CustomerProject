@@ -2,7 +2,10 @@ package Deneme2.Second.entities.contact;
 
 import Deneme2.Second.entities.customer.Customer;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor

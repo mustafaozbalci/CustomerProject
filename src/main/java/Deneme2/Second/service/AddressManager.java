@@ -1,14 +1,16 @@
 package Deneme2.Second.service;
 
-import Deneme2.Second.entities.address.Address;
-import Deneme2.Second.entities.address.City;
-import Deneme2.Second.entities.address.Country;
-import Deneme2.Second.entities.customer.Customer;
-import Deneme2.Second.mapper.AddressMapper;
-import Deneme2.Second.requests.*;
 import Deneme2.Second.dataAccess.AddressRepository;
 import Deneme2.Second.dataAccess.CityRepository;
 import Deneme2.Second.dataAccess.CountryRepository;
+import Deneme2.Second.entities.address.Address;
+import Deneme2.Second.entities.address.City;
+import Deneme2.Second.entities.address.Country;
+import Deneme2.Second.mapper.AddressMapper;
+import Deneme2.Second.requests.CreateAddressRequest;
+import Deneme2.Second.requests.CreateCityRequest;
+import Deneme2.Second.requests.CreateCountryRequest;
+import Deneme2.Second.requests.UpdateAddressRequest;
 import Deneme2.Second.serviceAbstracts.AdressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,14 +64,14 @@ public class AddressManager implements AdressService {
         return addressRepository.save(address);
     }
 
-    public Address getById(int addressId) {
+    public Address getAddressById(int addressId) {
         return addressRepository.findById(addressId).orElse(null);
     }
 
-    public void delete(int id) {
-        if (addressRepository.existsById(id)) {
-            Address addressToDelete = getById(id);
-            addressRepository.deleteById(id);
+    public void delete(int addressId) {
+        if (addressRepository.existsById(addressId)) {
+            Address addressToDelete = getAddressById(addressId);
+            addressRepository.deleteById(addressId);
         } else {
             throw new RuntimeException("Address not found");
         }
@@ -90,13 +92,13 @@ public class AddressManager implements AdressService {
     }
 
     public void updateAddress(int addressId, UpdateAddressRequest updateAddressRequest) {
-        Address existingAddress = getById(addressId);
+        Address existingAddress = getAddressById(addressId);
 
         if (existingAddress != null) {
             addressMapper.updateAddressFromRequest(updateAddressRequest, existingAddress);
             addressRepository.save(existingAddress);
         } else {
-            throw new RuntimeException("Customer not found");
+            throw new RuntimeException("Address not found");
         }
     }
 }
