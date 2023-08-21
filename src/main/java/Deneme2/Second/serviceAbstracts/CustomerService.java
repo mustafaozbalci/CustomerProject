@@ -1,8 +1,8 @@
 package Deneme2.Second.serviceAbstracts;
 
 import Deneme2.Second.entities.customer.Customer;
-import Deneme2.Second.requests.CreateCustomerRequest;
-import Deneme2.Second.requests.UpdateCustomerRequest;
+import Deneme2.Second.requests.Create.CreateCustomerRequest;
+import Deneme2.Second.requests.Update.UpdateCustomerRequest;
 import org.springframework.stereotype.Service;
 
 @Service

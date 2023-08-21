@@ -1,4 +1,4 @@
-package Deneme2.Second.requests;
+package Deneme2.Second.requests.Update;
 
 import Deneme2.Second.entities.address.City;
 import Deneme2.Second.entities.address.Country;

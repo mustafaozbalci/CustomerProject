@@ -1,8 +1,8 @@
 package Deneme2.Second.webApiControllers;
 
 import Deneme2.Second.entities.contact.Email;
-import Deneme2.Second.requests.CreateEmailRequest;
-import Deneme2.Second.requests.UpdateEmailRequest;
+import Deneme2.Second.requests.Create.CreateEmailRequest;
+import Deneme2.Second.requests.Update.UpdateEmailRequest;
 import Deneme2.Second.service.EmailManager;
 import org.springframework.web.bind.annotation.*;
 

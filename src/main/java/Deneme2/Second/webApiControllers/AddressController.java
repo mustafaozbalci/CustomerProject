@@ -2,8 +2,8 @@ package Deneme2.Second.webApiControllers;
 
 import Deneme2.Second.dataAccess.CityRepository;
 import Deneme2.Second.entities.address.Address;
-import Deneme2.Second.requests.CreateAddressRequest;
-import Deneme2.Second.requests.UpdateAddressRequest;
+import Deneme2.Second.requests.Create.CreateAddressRequest;
+import Deneme2.Second.requests.Update.UpdateAddressRequest;
 import Deneme2.Second.service.AddressManager;
 import org.springframework.web.bind.annotation.*;
 

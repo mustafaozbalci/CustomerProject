@@ -1,7 +1,7 @@
 package Deneme2.Second.mapper;
 
 import Deneme2.Second.entities.customer.Customer;
-import Deneme2.Second.requests.UpdateCustomerRequest;
+import Deneme2.Second.requests.Update.UpdateCustomerRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

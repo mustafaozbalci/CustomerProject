@@ -1,4 +1,4 @@
-package Deneme2.Second.requests;
+package Deneme2.Second.requests.Update;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

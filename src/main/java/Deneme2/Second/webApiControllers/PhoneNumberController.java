@@ -1,7 +1,7 @@
 package Deneme2.Second.webApiControllers;
 
 import Deneme2.Second.entities.contact.PhoneNumber;
-import Deneme2.Second.requests.UpdatePhoneNumberRequest;
+import Deneme2.Second.requests.Update.UpdatePhoneNumberRequest;
 import Deneme2.Second.service.PhoneNumberManager;
 import org.springframework.web.bind.annotation.*;
 

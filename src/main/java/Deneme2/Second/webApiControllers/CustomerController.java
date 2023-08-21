@@ -1,8 +1,8 @@
 package Deneme2.Second.webApiControllers;
 
 import Deneme2.Second.entities.customer.Customer;
-import Deneme2.Second.requests.CreateCustomerRequest;
-import Deneme2.Second.requests.UpdateCustomerRequest;
+import Deneme2.Second.requests.Create.CreateCustomerRequest;
+import Deneme2.Second.requests.Update.UpdateCustomerRequest;
 import Deneme2.Second.service.AddressManager;
 import Deneme2.Second.service.CustomerManager;
 import org.springframework.beans.factory.annotation.Autowired;

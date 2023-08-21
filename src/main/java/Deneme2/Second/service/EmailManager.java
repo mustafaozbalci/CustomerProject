@@ -2,11 +2,9 @@ package Deneme2.Second.service;
 
 import Deneme2.Second.dataAccess.EmailRepository;
 import Deneme2.Second.entities.contact.Email;
-import Deneme2.Second.entities.customer.Customer;
 import Deneme2.Second.mapper.EmailMapper;
-import Deneme2.Second.requests.CreateEmailRequest;
-import Deneme2.Second.requests.UpdateCustomerRequest;
-import Deneme2.Second.requests.UpdateEmailRequest;
+import Deneme2.Second.requests.Create.CreateEmailRequest;
+import Deneme2.Second.requests.Update.UpdateEmailRequest;
 import Deneme2.Second.serviceAbstracts.EmailService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

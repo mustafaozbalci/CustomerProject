@@ -1,7 +1,7 @@
 package Deneme2.Second.mapper;
 
 import Deneme2.Second.entities.contact.PhoneNumber;
-import Deneme2.Second.requests.UpdatePhoneNumberRequest;
+import Deneme2.Second.requests.Update.UpdatePhoneNumberRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

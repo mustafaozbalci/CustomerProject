@@ -1,7 +1,7 @@
 package Deneme2.Second.mapper;
 
 import Deneme2.Second.entities.payment.Payment;
-import Deneme2.Second.requests.UpdatePaymentRequest;
+import Deneme2.Second.requests.Update.UpdatePaymentRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

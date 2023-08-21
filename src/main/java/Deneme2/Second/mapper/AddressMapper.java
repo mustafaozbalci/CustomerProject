@@ -1,7 +1,7 @@
 package Deneme2.Second.mapper;
 
 import Deneme2.Second.entities.address.Address;
-import Deneme2.Second.requests.UpdateAddressRequest;
+import Deneme2.Second.requests.Update.UpdateAddressRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

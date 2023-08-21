@@ -1,5 +1,9 @@
-package Deneme2.Second.requests;
+package Deneme2.Second.requests.Update;
 
+import Deneme2.Second.requests.Create.CreateAddressRequest;
+import Deneme2.Second.requests.Create.CreateEmailRequest;
+import Deneme2.Second.requests.Create.CreatePaymentRequest;
+import Deneme2.Second.requests.Create.CreatePhoneNumberRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

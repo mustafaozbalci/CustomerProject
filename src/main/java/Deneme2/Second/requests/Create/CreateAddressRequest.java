@@ -1,4 +1,4 @@
-package Deneme2.Second.requests;
+package Deneme2.Second.requests.Create;
 
 import Deneme2.Second.entities.customer.Customer;
 import lombok.Getter;

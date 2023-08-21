@@ -3,7 +3,7 @@ package Deneme2.Second.service;
 import Deneme2.Second.dataAccess.PhoneNumberRepository;
 import Deneme2.Second.entities.contact.PhoneNumber;
 import Deneme2.Second.mapper.PhoneNumberMapper;
-import Deneme2.Second.requests.UpdatePhoneNumberRequest;
+import Deneme2.Second.requests.Update.UpdatePhoneNumberRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

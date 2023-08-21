@@ -1,9 +1,8 @@
 package Deneme2.Second.webApiControllers;
 
-import Deneme2.Second.entities.contact.PhoneNumber;
 import Deneme2.Second.entities.payment.Payment;
-import Deneme2.Second.requests.CreatePaymentRequest;
-import Deneme2.Second.requests.UpdatePaymentRequest;
+import Deneme2.Second.requests.Create.CreatePaymentRequest;
+import Deneme2.Second.requests.Update.UpdatePaymentRequest;
 import Deneme2.Second.service.PaymentManager;
 import org.springframework.web.bind.annotation.*;
 
