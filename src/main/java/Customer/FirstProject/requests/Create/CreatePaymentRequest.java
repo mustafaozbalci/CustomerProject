@@ -14,12 +14,11 @@ public class CreatePaymentRequest {
 }
 /**
  * AN EXAMPLE JSON TO ADD PAYMENT
- * {
- *
- *     "cardHolderName": "NAME SURNAME",
- *     "cardNumber": "2222222222222222",    //must be 16 char
- *     "expirationDate": "08/26",           //must be 5 char
- *     "cvv": "666",                        //must be 3 char
- *     "paymentAmount": 750.0
+ *     {
+ *     "cardHolderName": "Name Surname",
+ *     "cardNumber": "3216549873216547",
+ *     "expirationDate": "12/23",
+ *     "cvv": "521",
+ *     "paymentAmount": 321.98
  * }
  */

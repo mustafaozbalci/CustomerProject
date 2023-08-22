@@ -8,3 +8,9 @@ import lombok.Setter;
 public class CreateEmailRequest {
     private String emailAddress;
 }
+/**
+ * AN EXAMPLE JSON TO ADD PhoneNumber
+ * {
+ * "emailAddress" : "Example@example.com
+ * }
+ */

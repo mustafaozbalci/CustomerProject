@@ -22,9 +22,11 @@ public class PhoneNumberManager {
             return phoneNumberRepository.save(phoneNumberEntity);
         }
     }
+
     public PhoneNumberEntity getPhoneNumberById(int phoneNumberId) {
         return phoneNumberRepository.findById(phoneNumberId).orElse(null);
     }
+
     public void updatePhoneNumber(int phoneNumberId, UpdatePhoneNumberRequest updatePhoneNumberRequest) {
         PhoneNumberEntity existingPhoneNumberEntity = getPhoneNumberById(phoneNumberId);
 
@@ -35,6 +37,7 @@ public class PhoneNumberManager {
             throw new RuntimeException("Phone Number not found");
         }
     }
+
     public void delete(int phoneNumberId) {
         if (phoneNumberRepository.existsById(phoneNumberId)) {
             PhoneNumberEntity phoneToDelete = getPhoneNumberById(phoneNumberId);
@@ -44,8 +47,8 @@ public class PhoneNumberManager {
         }
     }
 
-    public boolean checkIfphoneNumberIdExists(int phoneNumberId){
-        if(phoneNumberRepository.existsById(phoneNumberId))
+    public boolean checkIfphoneNumberIdExists(int phoneNumberId) {
+        if (phoneNumberRepository.existsById(phoneNumberId))
             return true;
         else {
             return false;

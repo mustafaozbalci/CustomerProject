@@ -3,15 +3,10 @@ package Customer.FirstProject.entities.address;
 import Customer.FirstProject.entities.customer.CustomerEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Table(name = "address", schema = "customer_application")
 @Entity
 public class AddressEntity {

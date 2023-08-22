@@ -8,3 +8,9 @@ import lombok.Setter;
 public class CreatePhoneNumberRequest {
     private String phoneNumber;
 }
+/**
+ * AN EXAMPLE JSON TO ADD PhoneNumber
+ *     {
+ *     "phoneNumber" : "5421654874218"
+ * }
+ */

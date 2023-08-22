@@ -12,9 +12,10 @@ import Customer.FirstProject.requests.Create.CreateCityRequest;
 import Customer.FirstProject.requests.Create.CreateCountryRequest;
 import Customer.FirstProject.requests.Update.UpdateAddressRequest;
 import Customer.FirstProject.serviceAbstracts.AdressService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+@RequiredArgsConstructor
 @Service
 public class AddressManager implements AdressService {
     private final AddressRepository addressRepository;
@@ -22,13 +23,6 @@ public class AddressManager implements AdressService {
     private final CityRepository cityRepository;
     private final CountryRepository countryRepository;
 
-    @Autowired
-    public AddressManager(AddressRepository addressRepository, CityRepository cityRepository, CountryRepository countryRepository, AddressMapper addressMapper) {
-        this.addressRepository = addressRepository;
-        this.cityRepository = cityRepository;
-        this.countryRepository = countryRepository;
-        this.addressMapper = addressMapper;
-    }
 
     public AddressEntity createAddress(CreateAddressRequest request) {
         AddressEntity addressEntity = new AddressEntity();

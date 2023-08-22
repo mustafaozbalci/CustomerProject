@@ -1,24 +1,30 @@
 package Customer.FirstProject.webApiControllers;
 
+import Customer.FirstProject.Dto.PaymentDto;
+import Customer.FirstProject.mapper.PaymentMapper;
 import Customer.FirstProject.requests.Create.CreatePaymentRequest;
 import Customer.FirstProject.entities.payment.PaymentEntity;
 import Customer.FirstProject.requests.Update.UpdatePaymentRequest;
 import Customer.FirstProject.service.PaymentManager;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/payment")
 public class PaymentController {
     private final PaymentManager paymentManager;
 
-    public PaymentController(PaymentManager paymentManager) {
-        this.paymentManager = paymentManager;
-    }
     @PostMapping
     public void addPayment(@RequestBody CreatePaymentRequest createPaymentRequest){
-        paymentManager.checkIfCardNumberExists(createPaymentRequest.getCardNumber());
-        paymentManager.addPayment(createPaymentRequest);
-        System.out.println("PaymentEntity Card Number : " + createPaymentRequest.getCardNumber() + " Successfully Added.");
+        PaymentDto paymentDto = new PaymentDto();
+        paymentDto.setCardHolderName(createPaymentRequest.getCardHolderName());
+        paymentDto.setCardNumber(createPaymentRequest.getCardNumber());
+        paymentDto.setExpirationDate(createPaymentRequest.getExpirationDate());
+        paymentDto.setCvv(createPaymentRequest.getCvv());
+        paymentDto.setPaymentAmount(createPaymentRequest.getPaymentAmount());
+        PaymentEntity paymentEntity = PaymentMapper.INSTANCE.dtoToModel(paymentDto);
+        paymentManager.addPayment(paymentEntity);
+        System.out.println("Payment : " + paymentEntity + " Successfully Added.");
 
     }
     @GetMapping("/{paymentId}")

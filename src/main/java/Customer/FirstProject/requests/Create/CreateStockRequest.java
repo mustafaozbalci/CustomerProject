@@ -8,3 +8,7 @@ import lombok.Setter;
 public class CreateStockRequest {
     private Integer quantity;
 }
+/**
+ AN EXAMPLE JSON TO ADD Stock
+ * "quantity" : 100
+ */

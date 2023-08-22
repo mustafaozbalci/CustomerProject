@@ -1,26 +1,24 @@
 package Customer.FirstProject.service;
 
-import Customer.FirstProject.mapper.CustomerMapper;
-import Customer.FirstProject.entities.customer.CustomerEntity;
-import Customer.FirstProject.serviceAbstracts.CustomerService;
-import Customer.FirstProject.requests.Create.CreateCustomerRequest;
-import Customer.FirstProject.requests.Update.UpdateCustomerRequest;
 import Customer.FirstProject.dataAccess.AddressRepository;
 import Customer.FirstProject.dataAccess.CustomerRepository;
+import Customer.FirstProject.entities.customer.CustomerEntity;
+import Customer.FirstProject.mapper.CustomerMapper;
+import Customer.FirstProject.requests.Create.CreateCustomerRequest;
+import Customer.FirstProject.requests.Update.UpdateCustomerRequest;
+import Customer.FirstProject.serviceAbstracts.CustomerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+@RequiredArgsConstructor
 @Service
 public class CustomerManager implements CustomerService {
     private CustomerRepository customerRepository;
     private CustomerMapper customerMapper;
     private AddressRepository addressRepository;
 
-    public CustomerManager(CustomerRepository customerRepository, CustomerMapper customerMapper) {
-        this.customerRepository = customerRepository;
-        this.customerMapper = customerMapper;
-    }
+
     @Transactional
     public CustomerEntity addCustomer(CreateCustomerRequest createCustomerRequest) {
         if (checkIfTCExists(createCustomerRequest.getCustomerTC())) {

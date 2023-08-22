@@ -9,9 +9,7 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
-@ToString
+@Data
 @Table(name = "customer", schema = "customer_application")
 @Entity
 public class CustomerEntity {

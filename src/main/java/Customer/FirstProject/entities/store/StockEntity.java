@@ -5,8 +5,7 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
+@Data
 @ToString
 @Table(name = "stock", schema = "customer_application")
 @Entity
@@ -19,6 +18,6 @@ public class StockEntity {
     @Column(name = "quantity")
     private int quantity;
 
-    @OneToOne(mappedBy = "stockEntity", cascade = CascadeType.ALL)
-    private StoreEntity storeEntity;
+//    @OneToOne(mappedBy = "stockEntity", cascade = CascadeType.ALL)
+//    private StoreEntity storeEntity;
 }

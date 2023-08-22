@@ -2,15 +2,11 @@ package Customer.FirstProject.entities.contact;
 
 import Customer.FirstProject.entities.customer.CustomerEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Table(name = "email", schema = "customer_application")
 @Entity
 public class EmailEntity {

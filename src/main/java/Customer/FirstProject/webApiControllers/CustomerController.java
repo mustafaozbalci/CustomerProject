@@ -1,15 +1,15 @@
 package Customer.FirstProject.webApiControllers;
 
-import Customer.FirstProject.service.AddressManager;
-import Customer.FirstProject.service.CustomerManager;
 import Customer.FirstProject.entities.customer.CustomerEntity;
 import Customer.FirstProject.requests.Create.CreateCustomerRequest;
 import Customer.FirstProject.requests.Update.UpdateCustomerRequest;
-import lombok.AllArgsConstructor;
+import Customer.FirstProject.service.AddressManager;
+import Customer.FirstProject.service.CustomerManager;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping(path = "/api/customer")
 public class CustomerController {
     private final CustomerManager customerManager;
@@ -43,7 +43,6 @@ public class CustomerController {
             customerManager.delete(customerId);
         else
             throw new RuntimeException("başarmadık abi");
-
 
 
     }

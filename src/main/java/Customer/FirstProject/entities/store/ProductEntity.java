@@ -6,8 +6,7 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
+@Data
 @ToString
 @Table(name = "product", schema = "customer_application")
 @Entity
