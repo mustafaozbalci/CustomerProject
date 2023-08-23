@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CreateAddressRequest {
-    private CreateCountryRequest countryRequest;
-    private CreateCityRequest cityRequest;
+    private int cityId;
+    private int countryId;
     private CustomerEntity customerEntity;
 }

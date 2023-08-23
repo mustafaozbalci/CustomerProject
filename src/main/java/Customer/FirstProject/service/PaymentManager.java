@@ -15,22 +15,6 @@ public class PaymentManager implements PaymentService {
     private final PaymentRepository paymentRepository;
     private final PaymentMapper paymentMapper;
 
-
-
-
-    /**
-     * It checks whether there is such a payment in the database according to the Card Number.
-     * @param cardNumber
-     * @return
-     */
-    public boolean checkIfCardNumberExists(String cardNumber) {
-        if (paymentRepository.existsByCardNumber(cardNumber))
-            return true;
-        else {
-            return false;
-        }
-    }
-
     public boolean checkIfPaymentIdExists(int paymentId) {
         if (paymentRepository.existsById(paymentId))
             return true;

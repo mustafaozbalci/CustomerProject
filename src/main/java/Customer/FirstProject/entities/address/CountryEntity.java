@@ -19,9 +19,6 @@ public class CountryEntity {
     @Column(name = "countryName")
     private String countryName;
 
-    @OneToMany(mappedBy = "countryEntity", cascade = CascadeType.ALL)
-    private List<AddressEntity> addressEntities;
-
-    @OneToMany(mappedBy = "countryEntity", cascade = CascadeType.ALL)
-    private List<CityEntity> cities;
+    @Column(name = "cityId")
+    private int cityId;
 }

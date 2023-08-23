@@ -1,9 +1,10 @@
 package Customer.FirstProject.webApiControllers;
 
+import Customer.FirstProject.Dto.CustomerDto;
 import Customer.FirstProject.entities.customer.CustomerEntity;
+import Customer.FirstProject.mapper.CustomerMapper;
 import Customer.FirstProject.requests.Create.CreateCustomerRequest;
 import Customer.FirstProject.requests.Update.UpdateCustomerRequest;
-import Customer.FirstProject.service.AddressManager;
 import Customer.FirstProject.service.CustomerManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,15 +14,23 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/api/customer")
 public class CustomerController {
     private final CustomerManager customerManager;
-    private final AddressManager addressManager;
 
     @PostMapping
-    public void addCustomer(@RequestBody CreateCustomerRequest createCustomerRequest) {
-        if (!customerManager.checkIfTCExists(createCustomerRequest.getCustomerTC())) {
-            customerManager.addCustomer(createCustomerRequest);
+    public void createCustomer(@RequestBody CreateCustomerRequest createCustomerRequest) {
+        CustomerDto customerDto = new CustomerDto();
 
+        customerDto.setCustomerName(createCustomerRequest.getCustomerName());
+        customerDto.setCustomerSurname(createCustomerRequest.getCustomerSurname());
+        customerDto.setCustomerTC(createCustomerRequest.getCustomerTC());
+        customerDto.setPhoneNumberId(createCustomerRequest.getPhoneNumberId());
+        customerDto.setEmailId(createCustomerRequest.getEmailId());
+        customerDto.setPaymentId(createCustomerRequest.getPaymentId());
+        customerDto.setAddressId(createCustomerRequest.getAddressId());
+        customerDto.setStoreId(createCustomerRequest.getStoreId());
+        CustomerEntity customerEntity = CustomerMapper.INSTANCE.dtoToModel(customerDto);
+        customerManager.createCustomer(customerEntity);
+        System.out.println("Customer : " + customerEntity + " Created Successfully");
 
-        }
     }
 
     @GetMapping("/{customerId}")

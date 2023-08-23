@@ -19,17 +19,4 @@ public class StoreEntity {
     @Column(name = "storeName")
     private String storeName;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private CustomerEntity customerEntity;
-
-    @JsonIgnore
-    @OneToOne
-    @JoinColumn(name = "stock_id", referencedColumnName = "stockId")
-    private StockEntity stockEntity;
-
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "productId")
-    private ProductEntity productEntity;
 }

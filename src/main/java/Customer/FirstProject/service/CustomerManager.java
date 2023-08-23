@@ -14,19 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Service
 public class CustomerManager implements CustomerService {
-    private CustomerRepository customerRepository;
-    private CustomerMapper customerMapper;
-    private AddressRepository addressRepository;
+    private final CustomerRepository customerRepository;
+    private final CustomerMapper customerMapper;
+    private final AddressRepository addressRepository;
 
 
-    @Transactional
-    public CustomerEntity addCustomer(CreateCustomerRequest createCustomerRequest) {
-        if (checkIfTCExists(createCustomerRequest.getCustomerTC())) {
-            throw new RuntimeException("This TC " + createCustomerRequest.getCustomerTC() + " Already Exists");
-        }
-
-        CustomerEntity customerEntity = new CustomerEntity();
-        BeanUtils.copyProperties(createCustomerRequest, customerEntity);
+    public CustomerEntity createCustomer(CustomerEntity customerEntity){
         return customerRepository.save(customerEntity);
     }
 
@@ -67,10 +60,5 @@ public class CustomerManager implements CustomerService {
         else {
             return false;
         }
-    }
-    public boolean checkIfTCExists(String TC){
-        if(customerRepository.existsByCustomerTC(TC))
-            throw new RuntimeException("This TC " + TC + " Already Exists");
-        return false;
     }
 }

@@ -1,11 +1,9 @@
 package Customer.FirstProject.entities.customer;
 
-import Customer.FirstProject.entities.address.AddressEntity;
-import Customer.FirstProject.entities.contact.PhoneNumberEntity;
-import Customer.FirstProject.entities.payment.PaymentEntity;
-import Customer.FirstProject.entities.store.StoreEntity;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,7 +14,7 @@ public class CustomerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customerId")
-    private Integer customerId;
+    private int customerId;
 
     @Column(name = "customerName")
     private String customerName;
@@ -27,16 +25,16 @@ public class CustomerEntity {
     @Column(name = "customer_TC")
     private String customerTC;
 
-    @OneToOne(mappedBy = "customerEntity", cascade = CascadeType.ALL)
-    private AddressEntity addressEntity;
+    @Column(name = "addressId")
+    private int addressId;
 
-    @OneToOne(mappedBy = "customerEntity")
-    private PhoneNumberEntity phoneNumberEntity;
+    @Column(name = "phoneNumberId")
+    private int phoneNumberId;
 
-    @OneToOne(mappedBy = "customerEntity")
-    private PaymentEntity paymentEntity;
-    @ManyToOne
-    @JoinColumn(name = "store_id")
-    private StoreEntity storeEntity;
+    @Column(name = "emailId")
+    private int emailId;
+
+    @Column(name = "storeId")
+    private int storeId;
 
 }

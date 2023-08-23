@@ -15,17 +15,10 @@ public class AddressEntity {
     @Column(name = "addressId")
     private int addressId;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private CustomerEntity customerEntity;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "country_id", referencedColumnName = "countryId")
-    private CountryEntity countryEntity;
+    @Column(name = "country_id")
+    private int countryId;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "city_id", referencedColumnName = "cityId")
-    private CityEntity cityEntity;
+    @Column(name = "city_id")
+    private int cityId;
 }

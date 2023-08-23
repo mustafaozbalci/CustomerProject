@@ -24,8 +24,5 @@ public class PaymentEntity {
     private String cvv;
     @Column(name = "paymentAmount")
     private double paymentAmount;
-    @OneToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "customerId")
-    private CustomerEntity customerEntity;
 
 }

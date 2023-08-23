@@ -18,8 +18,4 @@ public class EmailEntity {
     @Column(name = "emailAddress")
     private String emailAddress;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "customerId")
-    private CustomerEntity customerEntity;
-
 }

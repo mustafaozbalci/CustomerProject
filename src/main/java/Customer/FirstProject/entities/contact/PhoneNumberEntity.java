@@ -18,11 +18,5 @@ public class PhoneNumberEntity {
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
-    @OneToOne
-    @JoinColumn(name = "customerId",referencedColumnName = "customerId")
-    private CustomerEntity customerEntity;
-
-
-
 
 }

@@ -18,8 +18,6 @@ public class CityEntity {
     @Column(name = "cityName")
     private String cityName;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "country_id", referencedColumnName = "countryId")
-    private CountryEntity countryEntity;
+    @Column(name = "country_id")
+    private int countryId;
 }

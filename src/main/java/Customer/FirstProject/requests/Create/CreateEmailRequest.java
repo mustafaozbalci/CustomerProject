@@ -9,7 +9,7 @@ public class CreateEmailRequest {
     private String emailAddress;
 }
 /**
- * AN EXAMPLE JSON TO ADD PhoneNumber
+ * AN EXAMPLE JSON TO ADD Email
  * {
  * "emailAddress" : "Example@example.com
  * }

@@ -9,9 +9,10 @@ public class CreateCustomerRequest {
     private String customerName;
     private String customerSurname;
     private String customerTC;
-    private CreateAddressRequest address;
-    private CreatePhoneNumberRequest phoneNumber;
-    private CreateEmailRequest email;
-    private CreatePaymentRequest payment;
+    private int addressId;
+    private int phoneNumberId;
+    private int emailId;
+    private int paymentId;
+    private int storeId;
 }
 

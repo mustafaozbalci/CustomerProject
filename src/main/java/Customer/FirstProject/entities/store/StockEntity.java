@@ -18,6 +18,4 @@ public class StockEntity {
     @Column(name = "quantity")
     private int quantity;
 
-//    @OneToOne(mappedBy = "stockEntity", cascade = CascadeType.ALL)
-//    private StoreEntity storeEntity;
 }

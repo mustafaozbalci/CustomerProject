@@ -1,7 +1,8 @@
 package Customer.FirstProject.webApiControllers;
 
-import Customer.FirstProject.dataAccess.CityRepository;
+import Customer.FirstProject.Dto.AddressDto;
 import Customer.FirstProject.entities.address.AddressEntity;
+import Customer.FirstProject.mapper.AddressMapper;
 import Customer.FirstProject.requests.Create.CreateAddressRequest;
 import Customer.FirstProject.requests.Update.UpdateAddressRequest;
 import Customer.FirstProject.service.AddressManager;
@@ -13,13 +14,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/address")
 public class AddressController {
     private final AddressManager addressManager;
-    private final CityRepository cityRepository;
 
 
-
-    @PostMapping
-    public AddressEntity createAddress(@RequestBody CreateAddressRequest request) {
-        return addressManager.createAddress(request);
+    @PostMapping()
+    public void createAddress(@RequestBody CreateAddressRequest createAddressRequest) {
+        AddressDto addressDto = new AddressDto();
+        addressDto.setCountryId(createAddressRequest.getCountryId());
+        addressDto.setCityId(createAddressRequest.getCityId());
+        AddressEntity addressEntity = AddressMapper.INSTANCE.dtoToModel(addressDto);
+        addressManager.createAddress(addressEntity);
+        System.out.println("Address " + addressEntity + " Successfully Created!");
     }
 
     @GetMapping("/{addressId}")

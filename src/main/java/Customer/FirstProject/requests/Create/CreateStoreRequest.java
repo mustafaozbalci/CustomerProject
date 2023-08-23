@@ -9,8 +9,8 @@ public class CreateStoreRequest {
     private String storeName;
 }
 /**
- * AN EXAMPLE JSON TO ADD PhoneNumber
+ * AN EXAMPLE JSON TO ADD Store
  * {
- *     "storeName": "ExampleStoreName"
+ * "storeName": "ExampleStoreName"
  * }
  */

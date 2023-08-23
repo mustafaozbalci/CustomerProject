@@ -22,8 +22,4 @@ public class ProductEntity {
     @Column(name = "price")
     private double price;
 
-    @JsonIgnore
-    @OneToOne
-    @JoinColumn(name = "stock_id", referencedColumnName = "stockId")
-    private StockEntity stockEntity;
 }
