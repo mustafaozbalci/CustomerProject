@@ -10,9 +10,9 @@ import org.mapstruct.factory.Mappers;
 public interface CityMapper {
 
     @Mapping(target = "cityId", source = "cityId")
-    CityDto modelToDto(CityEntity cityEntity);
+    CityDto toDto(CityEntity cityEntity);
 
-    CityEntity dtoToModel(CityDto cityDto);
+    CityEntity toEntity(CityDto cityDto);
 
     CityMapper INSTANCE = Mappers.getMapper(CityMapper.class);
 }

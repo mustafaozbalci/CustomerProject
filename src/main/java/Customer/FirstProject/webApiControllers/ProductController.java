@@ -1,8 +1,6 @@
 package Customer.FirstProject.webApiControllers;
 
 import Customer.FirstProject.Dto.ProductDto;
-import Customer.FirstProject.entities.store.ProductEntity;
-import Customer.FirstProject.mapper.ProductMapper;
 import Customer.FirstProject.requests.Create.CreateProductRequest;
 import Customer.FirstProject.service.ProductManager;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +20,6 @@ public class ProductController {
         ProductDto productDto = new ProductDto();
         productDto.setProductName(createProductRequest.getProductName());
         productDto.setPrice(createProductRequest.getPrice());
-
-        ProductEntity productEntity = ProductMapper.INSTANCE.dtoToModel(productDto);
-        productManager.addProduct(productEntity);
-        System.out.println("Product : " + productEntity + " Created Successfully");
+        productManager.addProduct(productDto);
     }
 }

@@ -1,9 +1,10 @@
 package Customer.FirstProject.entities.address;
 
-import Customer.FirstProject.entities.customer.CustomerEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -21,4 +22,10 @@ public class AddressEntity {
 
     @Column(name = "city_id")
     private int cityId;
+
+    @Transient
+    private String cityName;
+
+    @Transient
+    private String countryName;
 }

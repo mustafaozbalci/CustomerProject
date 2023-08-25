@@ -1,10 +1,7 @@
 package Customer.FirstProject.webApiControllers;
 
 import Customer.FirstProject.Dto.AddressDto;
-import Customer.FirstProject.entities.address.AddressEntity;
-import Customer.FirstProject.mapper.AddressMapper;
 import Customer.FirstProject.requests.Create.CreateAddressRequest;
-import Customer.FirstProject.requests.Update.UpdateAddressRequest;
 import Customer.FirstProject.service.AddressManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,31 +16,34 @@ public class AddressController {
     @PostMapping()
     public void createAddress(@RequestBody CreateAddressRequest createAddressRequest) {
         AddressDto addressDto = new AddressDto();
-        addressDto.setCountryId(createAddressRequest.getCountryId());
-        addressDto.setCityId(createAddressRequest.getCityId());
-        AddressEntity addressEntity = AddressMapper.INSTANCE.dtoToModel(addressDto);
-        addressManager.createAddress(addressEntity);
-        System.out.println("Address " + addressEntity + " Successfully Created!");
+        addressDto.setCountryName(createAddressRequest.getCountryName());
+        addressDto.setCityName(createAddressRequest.getCityName());
+        addressManager.createAddress(addressDto);
     }
 
     @GetMapping("/{addressId}")
-    public AddressEntity getAddressById(@PathVariable int addressId) {
-        return addressManager.getAddressById(addressId);
+    public AddressDto getAddressById(@PathVariable int addressId) {
+        AddressDto addressDto = addressManager.getAddress(addressId);
+        return addressDto;
+
     }
 
     @DeleteMapping("/{addressId}")
     public void deleteAddress(@PathVariable int addressId) {
-        if (addressManager.checkIfIdExists(addressId)) {
-            addressManager.delete(addressId);
-            System.out.println("Adres " + addressId + " başarıyla silindi. ");
-        } else
-            throw new RuntimeException("adres silmeyi başaramadık abi");
+        addressManager.delete(addressId);
+        System.out.println("Address " + addressId + " Deleted Successfully. ");
     }
 
-    @PatchMapping("/{addressId}")
-    public void updateAddress(@PathVariable int addressId, @RequestBody UpdateAddressRequest updateAddressRequest) {
-        addressManager.checkIfIdExists(addressId);
-        addressManager.updateAddress(addressId, updateAddressRequest);
-    }
+//    @PatchMapping("/{addressId}")
+//    public void updateAddress(@PathVariable int addressId, @RequestBody UpdateAddressRequest updateAddressRequest) {
+//        AddressDto addressDto = new AddressDto();
+//        addressDto.setAddressId(addressId);
+//        addressDto.setCityId(updateAddressRequest.getCityId());
+//        addressDto.setCountryId(updateAddressRequest.getCountryId());
+//        AddressEntity addressEntity = AddressMapper.INSTANCE.toEntity(addressDto);
+//
+//        addressManager.updateAddress(addressId, addressEntity);
+//        System.out.println("Update Address : " + addressEntity + " Successfully");
+//    }
 
 }

@@ -9,9 +9,9 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface StoreMapper {
     @Mapping(target = "storeId", source = "storeId")
-    StoreDto modelToDto(StoreEntity storeEntity);
+    StoreDto toDto(StoreEntity storeEntity);
 
-    StoreEntity dtoToModel(StoreDto storeDto);
+    StoreEntity toEntity(StoreDto storeDto);
 
 StoreMapper INSTANCE = Mappers.getMapper(StoreMapper.class);
 }

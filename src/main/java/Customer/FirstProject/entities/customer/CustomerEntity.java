@@ -37,4 +37,6 @@ public class CustomerEntity {
     @Column(name = "storeId")
     private int storeId;
 
+    @Column(name = "paymentId")
+    private int paymentId;
 }

@@ -9,9 +9,9 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface StockMapper {
     @Mapping(source = "stockId", target = "stockId")
-    StockDto modelToDto(StockEntity stockEntity);
+    StockDto toDto(StockEntity stockEntity);
 
-    StockEntity dtoToModel(StockDto stockDto);
+    StockEntity toEntity(StockDto stockDto);
 
     StockMapper INSTANCE = Mappers.getMapper(StockMapper.class);
 }

@@ -1,9 +1,9 @@
 package Customer.FirstProject.entities.address;
 
 import jakarta.persistence.*;
-import lombok.*;
-
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,6 +19,6 @@ public class CountryEntity {
     @Column(name = "countryName")
     private String countryName;
 
-    @Column(name = "cityId")
+    @Transient
     private int cityId;
 }

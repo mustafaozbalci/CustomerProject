@@ -4,8 +4,6 @@ import Customer.FirstProject.Dto.EmailDto;
 import Customer.FirstProject.dataAccess.EmailRepository;
 import Customer.FirstProject.entities.contact.EmailEntity;
 import Customer.FirstProject.mapper.EmailMapper;
-import Customer.FirstProject.requests.Create.CreateEmailRequest;
-import Customer.FirstProject.requests.Update.UpdateEmailRequest;
 import Customer.FirstProject.serviceAbstracts.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,30 +26,32 @@ public class EmailManager implements EmailService {
             return false;
         }
     }
-    public EmailEntity addEmail(EmailEntity emailEntity) {
-        if (checkIfEmailAdressExists(emailEntity.getEmailAddress())) {
-            throw new RuntimeException("This Email " + emailEntity.getEmailAddress() + " Already Exists");
+    public void addEmail(EmailDto emailDto) {
+        if (checkIfEmailAdressExists(emailDto.getEmailAddress())) {
+            throw new RuntimeException("This Email " + emailDto.getEmailAddress() + " Already Exists");
         }
-        return emailRepository.save(emailEntity);
+        EmailEntity emailEntity = emailMapper.toEntity(emailDto);
+        emailRepository.save(emailEntity);
     }
-    public EmailEntity getEmailById(int emailId) {
-        return emailRepository.findById(emailId).orElse(null);
+    public EmailDto getEmailById(int emailId) {
+        EmailEntity emailEntity = emailRepository.findById(emailId).orElse(null);
+        return emailMapper.toDto(emailEntity);
     }
-    public void delete(int emailId) {
-        if (emailRepository.existsById(emailId)) {
-            EmailEntity emailEntityToDelete = getEmailById(emailId);
-            emailRepository.deleteById(emailId);
-        } else {
-            throw new RuntimeException("EmailEntity not found");
-        }
-    }
-    public void updateEmail(int emailId, UpdateEmailRequest updateEmailRequest) {
-        EmailEntity existingEmailEntity = getEmailById(emailId);
-        if (existingEmailEntity != null) {
-            emailMapper.updateEmailFromRequest(updateEmailRequest, existingEmailEntity);
-            emailRepository.save(existingEmailEntity);
-        } else {
-            throw new RuntimeException("EmailEntity not found, Update failed ");
-        }
-    }
+//    public void delete(int emailId) {
+//        if (emailRepository.existsById(emailId)) {
+//            EmailEntity emailEntityToDelete = getEmailById(emailId);
+//            emailRepository.deleteById(emailId);
+//        } else {
+//            throw new RuntimeException("EmailEntity not found");
+//        }
+//    }
+//    public void updateEmail(int emailId, UpdateEmailRequest updateEmailRequest) {
+//        EmailEntity existingEmailEntity = getEmailById(emailId);
+//        if (existingEmailEntity != null) {
+//            emailMapper.updateEmailFromRequest(updateEmailRequest, existingEmailEntity);
+//            emailRepository.save(existingEmailEntity);
+//        } else {
+//            throw new RuntimeException("EmailEntity not found, Update failed ");
+//        }
+//    }
 }

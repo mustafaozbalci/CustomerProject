@@ -1,7 +1,9 @@
 package Customer.FirstProject.service;
 
+import Customer.FirstProject.Dto.StockDto;
 import Customer.FirstProject.dataAccess.StockRepository;
 import Customer.FirstProject.entities.store.StockEntity;
+import Customer.FirstProject.mapper.StockMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,10 +11,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class StockManager {
     private final StockRepository stockRepository;
+    private final StockMapper stockMapper;
 
-    public StockEntity addStock(StockEntity stockEntity) {
-        return stockRepository.save(stockEntity);
-
+    public void addStock(StockDto stockDto) {
+        StockEntity stockEntity = stockMapper.toEntity(stockDto);
+        stockRepository.save(stockEntity);
+        System.out.println("Stock " + stockEntity + " Created Successfully");
 
     }
 

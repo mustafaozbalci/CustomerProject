@@ -1,8 +1,9 @@
 package Customer.FirstProject.entities.address;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor

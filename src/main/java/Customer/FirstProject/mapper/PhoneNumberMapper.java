@@ -11,9 +11,9 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface PhoneNumberMapper {
     @Mapping(target = "phoneNumberId", source = "phoneNumberId")
-    PhoneNumberDto modelToDto (PhoneNumberEntity phoneNumberEntity);
+    PhoneNumberDto toDto (PhoneNumberEntity phoneNumberEntity);
 
-    PhoneNumberEntity dtoToModel(PhoneNumberDto phoneNumberDto);
+    PhoneNumberEntity toEntity(PhoneNumberDto phoneNumberDto);
 
     PhoneNumberMapper INSTANCE = Mappers.getMapper(PhoneNumberMapper.class);
 

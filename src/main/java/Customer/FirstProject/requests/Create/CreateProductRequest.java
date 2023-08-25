@@ -11,7 +11,7 @@ public class CreateProductRequest {
 }
 /**
  * AN EXAMPLE JSON TO ADD Product
- * "prductName" : "Example"
+ * "productName" : "Example"
  * "price" : 100.00
  */
 

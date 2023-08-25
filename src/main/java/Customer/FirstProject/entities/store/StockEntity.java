@@ -1,7 +1,10 @@
 package Customer.FirstProject.entities.store;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor

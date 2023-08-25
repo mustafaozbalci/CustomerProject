@@ -11,9 +11,9 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel ="spring")
 public interface EmailMapper {
     @Mapping(source = "emailId", target = "emailId")
-    EmailDto modelToDto(EmailEntity emailEntity);
+    EmailDto toDto(EmailEntity emailEntity);
 
-    EmailEntity dtoToModel(EmailDto emailDto);
+    EmailEntity toEntity(EmailDto emailDto);
 
     EmailMapper INSTANCE = Mappers.getMapper(EmailMapper.class);
 

@@ -14,9 +14,9 @@ public interface CustomerMapper {
 
     CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);
     @Mapping(target = "customerId", source = "customerId")
-    CustomerDto modelToDto(CustomerEntity customerEntity);
+    CustomerDto toDto(CustomerEntity customerEntity);
 
-    CustomerEntity dtoToModel(CustomerDto customerDto);
+    CustomerEntity toEntity(CustomerDto customerDto);
 
 
 

@@ -1,8 +1,6 @@
 package Customer.FirstProject.webApiControllers;
 
 import Customer.FirstProject.Dto.StockDto;
-import Customer.FirstProject.entities.store.StockEntity;
-import Customer.FirstProject.mapper.StockMapper;
 import Customer.FirstProject.requests.Create.CreateStockRequest;
 import Customer.FirstProject.service.StockManager;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +21,6 @@ public class StockController {
     public void addStock(@RequestBody CreateStockRequest createStockRequest) {
         StockDto stockDto = new StockDto();
         stockDto.setQuantity(createStockRequest.getQuantity());
-        StockEntity stockEntity = StockMapper.INSTANCE.dtoToModel(stockDto);
-        stockManager.addStock(stockEntity);
-        System.out.println("Stock " + stockEntity + " Created Successfully");
+        stockManager.addStock(stockDto);
     }
 }

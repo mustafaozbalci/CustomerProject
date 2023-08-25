@@ -1,8 +1,9 @@
 package Customer.FirstProject.entities.contact;
 
-import Customer.FirstProject.entities.customer.CustomerEntity;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor

@@ -11,8 +11,8 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface PaymentMapper {
     @Mapping(target = "paymentId" , source = "paymentId")
-    PaymentDto modelToDto(PaymentEntity paymentEntity);
-    PaymentEntity dtoToModel(PaymentDto paymentDto);
+    PaymentDto toDto(PaymentEntity paymentEntity);
+    PaymentEntity toEntity(PaymentDto paymentDto);
 
     PaymentMapper INSTANCE = Mappers.getMapper(PaymentMapper.class);
     @Mapping(target = "paymentId" , ignore = true)

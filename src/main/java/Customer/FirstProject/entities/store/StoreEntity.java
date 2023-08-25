@@ -1,9 +1,9 @@
 package Customer.FirstProject.entities.store;
 
-import Customer.FirstProject.entities.customer.CustomerEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,7 +14,7 @@ public class StoreEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "storeId")
-    private Integer storeId;
+    private int storeId;
 
     @Column(name = "storeName")
     private String storeName;
