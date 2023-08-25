@@ -18,7 +18,10 @@ public class StockManager implements StockService {
         StockEntity stockEntity = stockMapper.toEntity(stockDto);
         stockRepository.save(stockEntity);
         System.out.println("Stock " + stockEntity + " Created Successfully");
-
+    }
+    public StockDto getStock(int stockId){
+        StockEntity stockEntity = stockRepository.findById(stockId).orElse(null);
+        return stockMapper.toDto(stockEntity);
     }
 
 }

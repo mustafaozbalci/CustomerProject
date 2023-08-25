@@ -8,5 +8,5 @@ import org.springframework.stereotype.Service;
 public interface StoreService {
     void createStore(StoreDto storeDto);
 
-    StoreEntity getStoreById(Integer storeId);
+    StoreDto getStore(int storeId);
 }

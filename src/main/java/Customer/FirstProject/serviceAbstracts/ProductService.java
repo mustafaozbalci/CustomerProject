@@ -4,4 +4,5 @@ import Customer.FirstProject.Dto.ProductDto;
 
 public interface ProductService {
     void addProduct(ProductDto productDto);
+    ProductDto getProduct(int productId);
 }

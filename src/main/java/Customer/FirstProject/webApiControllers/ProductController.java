@@ -5,10 +5,7 @@ import Customer.FirstProject.requests.Create.CreateProductRequest;
 import Customer.FirstProject.service.ProductManager;
 import Customer.FirstProject.serviceAbstracts.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -22,5 +19,10 @@ public class ProductController {
         productDto.setProductName(createProductRequest.getProductName());
         productDto.setPrice(createProductRequest.getPrice());
         productService.addProduct(productDto);
+    }
+    @GetMapping("/{productId}")
+    public ProductDto getProduct (@PathVariable int productId){
+        ProductDto productDto = productService.getProduct(productId);
+        return productDto;
     }
 }

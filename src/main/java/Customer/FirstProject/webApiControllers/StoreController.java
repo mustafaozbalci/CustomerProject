@@ -20,7 +20,7 @@ public class StoreController {
         storeService.createStore(storeDto);
     }
     @GetMapping("/{storeId}")
-    public StoreEntity getStoreById(@PathVariable Integer storeId) {
-        return storeService.getStoreById(storeId);
+    public StoreDto getStoreById(@PathVariable int storeId) {
+        return storeService.getStore(storeId);
     }
 }

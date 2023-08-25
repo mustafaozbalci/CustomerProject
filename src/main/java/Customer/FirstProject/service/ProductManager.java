@@ -20,4 +20,8 @@ public class ProductManager implements ProductService {
         productRepository.save(productEntity);
         System.out.println("Product : " + productEntity + " Created Successfully");
     }
+    public ProductDto getProduct(int productId){
+        ProductEntity productEntity = productRepository.findById(productId).orElse(null);
+        return productMapper.toDto(productEntity);
+    }
 }

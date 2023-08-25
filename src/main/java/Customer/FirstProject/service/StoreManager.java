@@ -22,7 +22,8 @@ public class StoreManager implements StoreService {
 
     }
 
-    public StoreEntity getStoreById(Integer storeId) {
-        return storeRepository.findById(storeId).orElse(null);
+    public StoreDto getStore(int storeId) {
+        StoreEntity storeEntity = storeRepository.findById(storeId).orElse(null);
+        return storeMapper.toDto(storeEntity);
     }
 }
