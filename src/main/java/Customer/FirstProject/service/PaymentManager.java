@@ -18,8 +18,10 @@ public class PaymentManager implements PaymentService {
             return true;
         return false;
     }
-    public PaymentEntity addPayment(PaymentEntity paymentEntity) {
-        return paymentRepository.save(paymentEntity);
+    public void addPayment(PaymentDto paymentDto) {
+        PaymentEntity paymentEntity = paymentMapper.toEntity(paymentDto);
+        paymentRepository.save(paymentEntity);
+        System.out.println("Payment : " + paymentEntity + " Successfully Added.");
     }
     public PaymentDto getPaymentById(int paymentId) {
         PaymentEntity paymentEntity = paymentRepository.findById(paymentId).orElse(null);

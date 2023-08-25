@@ -4,6 +4,7 @@ import Customer.FirstProject.Dto.PhoneNumberDto;
 import Customer.FirstProject.dataAccess.PhoneNumberRepository;
 import Customer.FirstProject.entities.contact.PhoneNumberEntity;
 import Customer.FirstProject.mapper.PhoneNumberMapper;
+import Customer.FirstProject.requests.Update.UpdatePhoneNumberRequest;
 import Customer.FirstProject.serviceAbstracts.PhoneNumberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,32 +31,32 @@ public class PhoneNumberManager implements PhoneNumberService {
         return phoneNumberMapper.toDto(phoneNumberEntity);
     }
 
-//    public void updatePhoneNumber(int phoneNumberId, UpdatePhoneNumberRequest updatePhoneNumberRequest) {
-//        PhoneNumberEntity existingPhoneNumberEntity = getPhoneNumberById(phoneNumberId);
-//
-//        if (existingPhoneNumberEntity != null) {
-//            phoneNumberMapper.updatePhoneNumberFromRequest(updatePhoneNumberRequest, existingPhoneNumberEntity);
-//            phoneNumberRepository.save(existingPhoneNumberEntity);
-//        } else {
-//            throw new RuntimeException("Phone Number not found");
-//        }
-//    }
-//
-//    public void delete(int phoneNumberId) {
-//        if (phoneNumberRepository.existsById(phoneNumberId)) {
-//            PhoneNumberEntity phoneToDelete = getPhoneNumberById(phoneNumberId);
-//            phoneNumberRepository.deleteById(phoneNumberId);
-//        } else {
-//            throw new RuntimeException("Phone Number not found");
-//        }
-//    }
-//
-//    public boolean checkIfphoneNumberIdExists(int phoneNumberId) {
-//        if (phoneNumberRepository.existsById(phoneNumberId))
-//            return true;
-//        else {
-//            return false;
-//        }
-//    }
+    public void updatePhoneNumber(int phoneNumberId, UpdatePhoneNumberRequest updatePhoneNumberRequest) {
+        PhoneNumberEntity existingPhoneNumberEntity = phoneNumberMapper.toEntity(getPhoneNumberById(phoneNumberId));
+
+        if (existingPhoneNumberEntity != null) {
+            phoneNumberMapper.updatePhoneNumberFromRequest(updatePhoneNumberRequest, existingPhoneNumberEntity);
+            phoneNumberRepository.save(existingPhoneNumberEntity);
+        } else {
+            throw new RuntimeException("Phone Number not found");
+        }
+        System.out.println("Phone Number " + phoneNumberId + " Successfully Updated to : " + updatePhoneNumberRequest.getPhoneNumber());
+    }
+
+    public void delete(int phoneNumberId) {
+        if (checkIfphoneNumberIdExists(phoneNumberId)) {
+            phoneNumberRepository.deleteById(phoneNumberId);
+            System.out.println("Phone Number " + phoneNumberId + " Successfully Deleted!");
+        } else
+            throw new RuntimeException("Phone Number Delete Failed");
+    }
+
+    public boolean checkIfphoneNumberIdExists(int phoneNumberId) {
+        if (phoneNumberRepository.existsById(phoneNumberId))
+            return true;
+        else {
+            return false;
+        }
+    }
 
 }

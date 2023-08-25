@@ -18,8 +18,4 @@ public class UpdateCustomerRequest {
     private String customerName;
     private String customerSurname;
     private String customerTC;
-    private CreateAddressRequest address;
-    private CreatePhoneNumberRequest phoneNumber;
-    private CreateEmailRequest email;
-    private CreatePaymentRequest payment;
 }

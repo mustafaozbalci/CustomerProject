@@ -51,11 +51,11 @@ public class CustomerManager implements CustomerService {
 //        CustomerEntity customerEntity = customerRepository.getOne(getACustomer().getCustomerId());
 //        return customerEntity;
 //    }
-//    public boolean checkIfIdExists(int id){
-//        if(customerRepository.existsById(id))
-//            return true;
-//        else {
-//            return false;
-//        }
-//    }
+    public boolean checkIfIdExists(int id){
+        if(customerRepository.existsById(id))
+            return true;
+        else {
+            return false;
+        }
+    }
 }

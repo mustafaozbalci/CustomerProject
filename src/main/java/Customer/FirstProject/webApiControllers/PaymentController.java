@@ -21,10 +21,7 @@ public class PaymentController {
         paymentDto.setExpirationDate(createPaymentRequest.getExpirationDate());
         paymentDto.setCvv(createPaymentRequest.getCvv());
         paymentDto.setPaymentAmount(createPaymentRequest.getPaymentAmount());
-        PaymentEntity paymentEntity = PaymentMapper.INSTANCE.toEntity(paymentDto);
-        paymentService.addPayment(paymentEntity);
-        System.out.println("Payment : " + paymentEntity + " Successfully Added.");
-
+        paymentService.addPayment(paymentDto);
     }
     @GetMapping("/{paymentId}")
     public PaymentDto getPayment(@PathVariable int paymentId){

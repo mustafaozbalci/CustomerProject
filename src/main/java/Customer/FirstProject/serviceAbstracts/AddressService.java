@@ -1,7 +1,7 @@
 package Customer.FirstProject.serviceAbstracts;
 
 import Customer.FirstProject.Dto.AddressDto;
-import Customer.FirstProject.entities.address.AddressEntity;
+import Customer.FirstProject.requests.Update.UpdateAddressRequest;
 
 public interface AddressService {
     void createAddress(AddressDto addressDto);
@@ -10,7 +10,7 @@ public interface AddressService {
 
     void delete(int addressId);
 
-    void updateAddress(int addressId, AddressEntity addressEntity);
+    void updateAddress(int addressId, UpdateAddressRequest updateAddressRequest);
 
 
 }

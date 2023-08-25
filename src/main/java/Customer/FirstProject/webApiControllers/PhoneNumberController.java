@@ -2,6 +2,7 @@ package Customer.FirstProject.webApiControllers;
 
 import Customer.FirstProject.Dto.PhoneNumberDto;
 import Customer.FirstProject.requests.Create.CreatePhoneNumberRequest;
+import Customer.FirstProject.requests.Update.UpdatePhoneNumberRequest;
 import Customer.FirstProject.serviceAbstracts.PhoneNumberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -24,22 +25,16 @@ public class PhoneNumberController {
 
         return phoneNumberDto;
     }
-//
-//    @PatchMapping("/{phoneNumberId}")
-//    public void updatePhoneNumber(@PathVariable int phoneNumberId, @RequestBody UpdatePhoneNumberRequest updatePhoneNumber) {
-//        phoneNumberService.checkIfphoneNumberIdExists(phoneNumberId);
-//        phoneNumberService.updatePhoneNumber(phoneNumberId, updatePhoneNumber);
-//    }
-//
-//    @DeleteMapping("/{phoneNumberId}")
-//    public void deleteCustomer(@PathVariable int phoneNumberId) {
-//        if (phoneNumberService.checkIfphoneNumberIdExists(phoneNumberId)) {
-//            phoneNumberService.delete(phoneNumberId);
-//            System.out.println("Phone Number " + getPhoneNumberById(phoneNumberId) + " successfully deleted!");
-//        } else
-//            throw new RuntimeException("Phone Number Delete is Not Successful");
-//
-//
-//    }
+
+    @PatchMapping("/{phoneNumberId}")
+    public void updatePhoneNumber(@PathVariable int phoneNumberId, @RequestBody UpdatePhoneNumberRequest updatePhoneNumber) {
+        phoneNumberService.checkIfphoneNumberIdExists(phoneNumberId);
+        phoneNumberService.updatePhoneNumber(phoneNumberId, updatePhoneNumber);
+    }
+
+    @DeleteMapping("/{phoneNumberId}")
+    public void deleteCustomer(@PathVariable int phoneNumberId) {
+        phoneNumberService.delete(phoneNumberId);
+    }
 
 }

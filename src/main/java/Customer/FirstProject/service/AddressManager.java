@@ -10,6 +10,7 @@ import Customer.FirstProject.entities.address.CountryEntity;
 import Customer.FirstProject.mapper.AddressMapper;
 import Customer.FirstProject.mapper.CityMapper;
 import Customer.FirstProject.mapper.CountryMapper;
+import Customer.FirstProject.requests.Update.UpdateAddressRequest;
 import Customer.FirstProject.serviceAbstracts.AddressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,23 +33,20 @@ public class AddressManager implements AddressService {
         countryEntity = countryRepository.findByCountryName(addressEntity.getCountryName());
         cityEntity = cityRepository.findByCityName(addressEntity.getCityName());
 
-        if(cityEntity == null && countryEntity != null){
+        if (cityEntity == null && countryEntity != null) {
             CityEntity cityEntity1 = new CityEntity();
             cityEntity1.setCityName(addressEntity.getCityName());
             cityEntity1.setCountryId(countryEntity.getCountryId());
             cityRepository.save(cityEntity1);
             addressEntity.setCityId(cityEntity1.getCityId());
             addressEntity.setCountryId(countryEntity.getCountryId());
-        }
-
-        else if(countryEntity == null && cityEntity != null) {
+        } else if (countryEntity == null && cityEntity != null) {
             CountryEntity countryEntity1 = new CountryEntity();
             countryEntity1.setCountryName(addressEntity.getCountryName());
             countryRepository.save(countryEntity1);
             addressEntity.setCountryId(countryEntity1.getCountryId());
             cityEntity.setCountryId(countryEntity1.getCountryId());
-        }
-        else if(countryEntity == null && cityEntity == null) {
+        } else if (countryEntity == null && cityEntity == null) {
             CityEntity cityEntity2 = new CityEntity();
             CountryEntity countryEntity2 = new CountryEntity();
             countryEntity2.setCountryName(addressEntity.getCountryName());
@@ -58,8 +56,7 @@ public class AddressManager implements AddressService {
             cityRepository.save(cityEntity2);
             addressEntity.setCityId(cityEntity2.getCityId());
             addressEntity.setCountryId(countryEntity2.getCountryId());
-        }
-        else{
+        } else {
             addressEntity.setCountryId(countryEntity.getCountryId());
             cityEntity.setCountryId(addressEntity.getCountryId());
             addressEntity.setCityId(cityEntity.getCityId());
@@ -82,8 +79,45 @@ public class AddressManager implements AddressService {
         addressRepository.deleteById(addressId);
     }
 
-    public void updateAddress(int addressId, AddressEntity addressEntity) {
-        addressRepository.existsByAddressId(addressId);
-        addressRepository.save(addressEntity);
+    public void updateAddress(int addressId, UpdateAddressRequest updateAddressRequest) {
+        AddressDto existingAddressDto = getAddress(addressId);
+
+        if (existingAddressDto != null) {
+            addressMapper.updateAddressRequest(updateAddressRequest, existingAddressDto);
+            AddressEntity addressEntity = addressMapper.toEntity(existingAddressDto);
+            CityEntity cityEntity = cityRepository.findByCityName(addressEntity.getCityName());
+            CountryEntity countryEntity = countryRepository.findByCountryName(addressEntity.getCountryName());
+            if (cityEntity == null && countryEntity != null) {
+                cityEntity = new CityEntity();
+                cityEntity.setCityName(addressEntity.getCityName());
+                cityEntity.setCountryId(countryEntity.getCountryId());
+                cityRepository.save(cityEntity);
+                addressEntity.setCityId(cityEntity.getCityId());
+                addressEntity.setCountryId(countryEntity.getCountryId());
+            } else if (countryEntity == null && cityEntity != null) {
+                countryEntity = new CountryEntity();
+                countryEntity.setCountryName(addressEntity.getCountryName());
+                countryRepository.save(countryEntity);
+                addressEntity.setCountryId(countryEntity.getCountryId());
+            } else if (countryEntity == null && cityEntity == null) {
+                countryEntity = new CountryEntity();
+                cityEntity = new CityEntity();
+                countryEntity.setCountryName(addressEntity.getCountryName());
+                countryRepository.save(countryEntity);
+                cityEntity.setCityName(addressEntity.getCityName());
+                cityEntity.setCountryId(countryEntity.getCountryId());
+                cityRepository.save(cityEntity);
+            } else {
+                countryRepository.save(countryEntity);
+                cityEntity.setCountryId(countryEntity.getCountryId());
+                cityRepository.save(cityEntity);
+                addressEntity.setCityId(cityEntity.getCityId());
+                addressEntity.setCountryId(countryEntity.getCountryId());
+            }
+            addressRepository.save(addressEntity);
+            System.out.println("Address " + addressEntity + " have been changed!");
+        } else {
+            throw new RuntimeException("AddressEntity not found");
+        }
     }
 }

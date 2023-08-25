@@ -12,7 +12,9 @@ import lombok.Setter;
 public class UpdateAddressRequest {
     private int addressId;
     private int customerId;
-    private int countryId;
+    private String countryName;
+    private String cityName;
     private int cityId;
+    private int countryId;
 }
 

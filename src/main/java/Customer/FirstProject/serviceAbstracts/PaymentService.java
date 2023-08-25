@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 
 public interface PaymentService {
-    PaymentEntity addPayment(PaymentEntity paymentEntity);
+    void addPayment(PaymentDto paymentDto);
 
     PaymentDto getPaymentById(int paymentId);
 

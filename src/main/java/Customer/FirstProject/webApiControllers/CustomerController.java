@@ -28,12 +28,11 @@ public class CustomerController {
         customerService.createCustomer(customerDto);
 
 
-
     }
 
     @GetMapping("/{customerId}")
     public CustomerDto getCustomerById(@PathVariable int customerId) {
-        CustomerDto customerDto =  customerService.getCustomer(customerId);
+        CustomerDto customerDto = customerService.getCustomer(customerId);
         return customerDto;
     }
 
@@ -41,16 +40,14 @@ public class CustomerController {
     public void updateCustomer(@PathVariable int customerId, @RequestBody UpdateCustomerRequest updateCustomer) {
         customerService.updateCustomer(customerId, updateCustomer);
     }
-//
-//    @DeleteMapping("/{customerId}")
-//    public void deleteCustomer(@PathVariable int customerId) {
-//        if (customerService.checkIfIdExists(customerId))
-//            customerService.delete(customerId);
-//        else
-//            throw new RuntimeException("başarmadık abi");
-//
-//
-//    }
+
+    @DeleteMapping("/{customerId}")
+    public void deleteCustomer(@PathVariable int customerId) {
+        if (customerService.checkIfIdExists(customerId))
+            customerService.delete(customerId);
+        else
+            throw new RuntimeException("Customer delete Failed...");
+    }
 }
 
 

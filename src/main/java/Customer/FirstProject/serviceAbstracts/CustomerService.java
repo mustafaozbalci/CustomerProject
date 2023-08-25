@@ -13,7 +13,7 @@ public interface CustomerService {
     void updateCustomer(int customerId, UpdateCustomerRequest updateCustomerRequest);
 
     void delete(int id);
-
+    boolean checkIfIdExists(int id);
 
 
 }
