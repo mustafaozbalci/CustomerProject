@@ -4,12 +4,13 @@ import Customer.FirstProject.Dto.PhoneNumberDto;
 import Customer.FirstProject.dataAccess.PhoneNumberRepository;
 import Customer.FirstProject.entities.contact.PhoneNumberEntity;
 import Customer.FirstProject.mapper.PhoneNumberMapper;
+import Customer.FirstProject.serviceAbstracts.PhoneNumberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class PhoneNumberManager {
+public class PhoneNumberManager implements PhoneNumberService {
     private final PhoneNumberRepository phoneNumberRepository;
     private final PhoneNumberMapper phoneNumberMapper;
 

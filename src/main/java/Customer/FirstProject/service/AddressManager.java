@@ -10,13 +10,13 @@ import Customer.FirstProject.entities.address.CountryEntity;
 import Customer.FirstProject.mapper.AddressMapper;
 import Customer.FirstProject.mapper.CityMapper;
 import Customer.FirstProject.mapper.CountryMapper;
-import Customer.FirstProject.serviceAbstracts.AdressService;
+import Customer.FirstProject.serviceAbstracts.AddressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class AddressManager implements AdressService {
+public class AddressManager implements AddressService {
     private final AddressRepository addressRepository;
     private final AddressMapper addressMapper;
     private final CityRepository cityRepository;
@@ -31,27 +31,38 @@ public class AddressManager implements AdressService {
         AddressEntity addressEntity = addressMapper.toEntity(addressDto);
         countryEntity = countryRepository.findByCountryName(addressEntity.getCountryName());
         cityEntity = cityRepository.findByCityName(addressEntity.getCityName());
-        if(cityEntity == null){
+
+        if(cityEntity == null && countryEntity != null){
             CityEntity cityEntity1 = new CityEntity();
             cityEntity1.setCityName(addressEntity.getCityName());
             cityEntity1.setCountryId(countryEntity.getCountryId());
             cityRepository.save(cityEntity1);
             addressEntity.setCityId(cityEntity1.getCityId());
+            addressEntity.setCountryId(countryEntity.getCountryId());
         }
-        else {
-            cityRepository.save(cityEntity);
-            addressEntity.setCityId(cityEntity.getCityId());
-        }
-        if(countryEntity == null) {
+
+        else if(countryEntity == null && cityEntity != null) {
             CountryEntity countryEntity1 = new CountryEntity();
             countryEntity1.setCountryName(addressEntity.getCountryName());
             countryRepository.save(countryEntity1);
             addressEntity.setCountryId(countryEntity1.getCountryId());
+            cityEntity.setCountryId(countryEntity1.getCountryId());
+        }
+        else if(countryEntity == null && cityEntity == null) {
+            CityEntity cityEntity2 = new CityEntity();
+            CountryEntity countryEntity2 = new CountryEntity();
+            countryEntity2.setCountryName(addressEntity.getCountryName());
+            countryRepository.save(countryEntity2);
+            cityEntity2.setCityName(addressEntity.getCityName());
+            cityEntity2.setCountryId(countryEntity2.getCountryId());
+            cityRepository.save(cityEntity2);
+            addressEntity.setCityId(cityEntity2.getCityId());
+            addressEntity.setCountryId(countryEntity2.getCountryId());
         }
         else{
-            countryRepository.save(countryEntity);
-            cityEntity.setCountryId(countryEntity.getCountryId());
             addressEntity.setCountryId(countryEntity.getCountryId());
+            cityEntity.setCountryId(addressEntity.getCountryId());
+            addressEntity.setCityId(cityEntity.getCityId());
         }
         addressRepository.save(addressEntity);
         System.out.println("Address " + addressEntity + " Successfully Created!");

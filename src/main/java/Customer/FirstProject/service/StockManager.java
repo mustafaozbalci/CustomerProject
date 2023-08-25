@@ -4,12 +4,13 @@ import Customer.FirstProject.Dto.StockDto;
 import Customer.FirstProject.dataAccess.StockRepository;
 import Customer.FirstProject.entities.store.StockEntity;
 import Customer.FirstProject.mapper.StockMapper;
+import Customer.FirstProject.serviceAbstracts.StockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class StockManager {
+public class StockManager implements StockService {
     private final StockRepository stockRepository;
     private final StockMapper stockMapper;
 

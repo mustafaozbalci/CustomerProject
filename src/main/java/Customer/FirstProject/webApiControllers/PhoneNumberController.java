@@ -2,7 +2,7 @@ package Customer.FirstProject.webApiControllers;
 
 import Customer.FirstProject.Dto.PhoneNumberDto;
 import Customer.FirstProject.requests.Create.CreatePhoneNumberRequest;
-import Customer.FirstProject.service.PhoneNumberManager;
+import Customer.FirstProject.serviceAbstracts.PhoneNumberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,31 +10,31 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/phone")
 public class PhoneNumberController {
-    private final PhoneNumberManager phoneNumberManager;
+    private final PhoneNumberService phoneNumberService;
 
     @PostMapping
     public void addPhoneNumber(@RequestBody CreatePhoneNumberRequest phoneNumberRequest) {
         PhoneNumberDto phoneNumberDto = new PhoneNumberDto();
         phoneNumberDto.setPhoneNumber(phoneNumberRequest.getPhoneNumber());
-        phoneNumberManager.addPhoneNumber(phoneNumberDto);
+        phoneNumberService.addPhoneNumber(phoneNumberDto);
     }
     @GetMapping("/{phoneNumberId}")
     public PhoneNumberDto getPhoneNumberById(@PathVariable int phoneNumberId) {
-        PhoneNumberDto phoneNumberDto = phoneNumberManager.getPhoneNumberById(phoneNumberId);
+        PhoneNumberDto phoneNumberDto = phoneNumberService.getPhoneNumberById(phoneNumberId);
 
         return phoneNumberDto;
     }
 //
 //    @PatchMapping("/{phoneNumberId}")
 //    public void updatePhoneNumber(@PathVariable int phoneNumberId, @RequestBody UpdatePhoneNumberRequest updatePhoneNumber) {
-//        phoneNumberManager.checkIfphoneNumberIdExists(phoneNumberId);
-//        phoneNumberManager.updatePhoneNumber(phoneNumberId, updatePhoneNumber);
+//        phoneNumberService.checkIfphoneNumberIdExists(phoneNumberId);
+//        phoneNumberService.updatePhoneNumber(phoneNumberId, updatePhoneNumber);
 //    }
 //
 //    @DeleteMapping("/{phoneNumberId}")
 //    public void deleteCustomer(@PathVariable int phoneNumberId) {
-//        if (phoneNumberManager.checkIfphoneNumberIdExists(phoneNumberId)) {
-//            phoneNumberManager.delete(phoneNumberId);
+//        if (phoneNumberService.checkIfphoneNumberIdExists(phoneNumberId)) {
+//            phoneNumberService.delete(phoneNumberId);
 //            System.out.println("Phone Number " + getPhoneNumberById(phoneNumberId) + " successfully deleted!");
 //        } else
 //            throw new RuntimeException("Phone Number Delete is Not Successful");

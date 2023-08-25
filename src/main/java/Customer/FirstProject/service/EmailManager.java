@@ -19,13 +19,6 @@ public class EmailManager implements EmailService {
             throw new RuntimeException("This emailAddress " + emailAddress + " Already Exists");
         return false;
     }
-    public boolean checkIfEmailIdExists(int emailId) {
-        if (emailRepository.existsByEmailId(emailId))
-            return true;
-        else {
-            return false;
-        }
-    }
     public void addEmail(EmailDto emailDto) {
         if (checkIfEmailAdressExists(emailDto.getEmailAddress())) {
             throw new RuntimeException("This Email " + emailDto.getEmailAddress() + " Already Exists");

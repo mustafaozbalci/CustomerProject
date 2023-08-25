@@ -4,14 +4,14 @@ import Customer.FirstProject.Dto.PaymentDto;
 import Customer.FirstProject.entities.payment.PaymentEntity;
 import Customer.FirstProject.mapper.PaymentMapper;
 import Customer.FirstProject.requests.Create.CreatePaymentRequest;
-import Customer.FirstProject.service.PaymentManager;
+import Customer.FirstProject.serviceAbstracts.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/payment")
 public class PaymentController {
-    private final PaymentManager paymentManager;
+    private final PaymentService paymentService;
 
     @PostMapping
     public void addPayment(@RequestBody CreatePaymentRequest createPaymentRequest){
@@ -22,25 +22,25 @@ public class PaymentController {
         paymentDto.setCvv(createPaymentRequest.getCvv());
         paymentDto.setPaymentAmount(createPaymentRequest.getPaymentAmount());
         PaymentEntity paymentEntity = PaymentMapper.INSTANCE.toEntity(paymentDto);
-        paymentManager.addPayment(paymentEntity);
+        paymentService.addPayment(paymentEntity);
         System.out.println("Payment : " + paymentEntity + " Successfully Added.");
 
     }
     @GetMapping("/{paymentId}")
     public PaymentDto getPayment(@PathVariable int paymentId){
-        PaymentDto paymentDto = paymentManager.getPaymentById(paymentId);
+        PaymentDto paymentDto = paymentService.getPaymentById(paymentId);
         return paymentDto;
     }
 //    @PatchMapping("/{paymentId}")
 //    public void updatePayment(@PathVariable int paymentId, @RequestBody UpdatePaymentRequest updatePaymentRequest) {
-//        paymentManager.checkIfPaymentIdExists(paymentId);
-//        paymentManager.updatePayment(paymentId, updatePaymentRequest);
+//        paymentService.checkIfPaymentIdExists(paymentId);
+//        paymentService.updatePayment(paymentId, updatePaymentRequest);
 //        System.out.println("Update paymentId : " + paymentId + " Successfully");
 //    }
 //    @DeleteMapping("/{paymentId}")
 //    public void delete(@PathVariable int paymentId){
-//        paymentManager.checkIfPaymentIdExists(paymentId);
-//        paymentManager.delete(paymentId);
+//        paymentService.checkIfPaymentIdExists(paymentId);
+//        paymentService.delete(paymentId);
 //        System.out.println("Deleting paymentId : " + paymentId + " Successfully Completed!");
 //    }
 }

@@ -2,7 +2,7 @@ package Customer.FirstProject.webApiControllers;
 
 import Customer.FirstProject.Dto.AddressDto;
 import Customer.FirstProject.requests.Create.CreateAddressRequest;
-import Customer.FirstProject.service.AddressManager;
+import Customer.FirstProject.serviceAbstracts.AddressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/address")
 public class AddressController {
-    private final AddressManager addressManager;
+    private final AddressService addressService;
 
 
     @PostMapping()
@@ -18,20 +18,19 @@ public class AddressController {
         AddressDto addressDto = new AddressDto();
         addressDto.setCountryName(createAddressRequest.getCountryName());
         addressDto.setCityName(createAddressRequest.getCityName());
-        addressManager.createAddress(addressDto);
+        addressService.createAddress(addressDto);
     }
 
     @GetMapping("/{addressId}")
     public AddressDto getAddressById(@PathVariable int addressId) {
-        AddressDto addressDto = addressManager.getAddress(addressId);
+        AddressDto addressDto = addressService.getAddress(addressId);
         return addressDto;
 
     }
 
     @DeleteMapping("/{addressId}")
     public void deleteAddress(@PathVariable int addressId) {
-        addressManager.delete(addressId);
-        System.out.println("Address " + addressId + " Deleted Successfully. ");
+        addressService.delete(addressId);
     }
 
 //    @PatchMapping("/{addressId}")
@@ -42,7 +41,7 @@ public class AddressController {
 //        addressDto.setCountryId(updateAddressRequest.getCountryId());
 //        AddressEntity addressEntity = AddressMapper.INSTANCE.toEntity(addressDto);
 //
-//        addressManager.updateAddress(addressId, addressEntity);
+//        addressService.updateAddress(addressId, addressEntity);
 //        System.out.println("Update Address : " + addressEntity + " Successfully");
 //    }
 

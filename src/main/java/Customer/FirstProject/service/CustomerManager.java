@@ -5,6 +5,7 @@ import Customer.FirstProject.dataAccess.AddressRepository;
 import Customer.FirstProject.dataAccess.CustomerRepository;
 import Customer.FirstProject.entities.customer.CustomerEntity;
 import Customer.FirstProject.mapper.CustomerMapper;
+import Customer.FirstProject.requests.Update.UpdateCustomerRequest;
 import Customer.FirstProject.serviceAbstracts.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,26 +29,22 @@ public class CustomerManager implements CustomerService {
         return customerMapper.toDto(customerEntity);
     }
 
-//    public void updateCustomer(int customerId, UpdateCustomerRequest updateCustomerRequest) {
-//        CustomerEntity existingCustomerEntity = getById(customerId);
-//
-//        if (existingCustomerEntity != null) {
-//            customerMapper.updateCustomerFromRequest(updateCustomerRequest, existingCustomerEntity);
-//            customerRepository.save(existingCustomerEntity);
-//        } else {
-//            throw new RuntimeException("CustomerEntity not found");
-//        }
-//    }
+    public void updateCustomer(int customerId, UpdateCustomerRequest updateCustomerRequest) {
+        CustomerEntity existingCustomerEntity = customerMapper.toEntity(getCustomer(customerId));
+
+        if (existingCustomerEntity != null) {
+            customerMapper.updateCustomerFromRequest(updateCustomerRequest, existingCustomerEntity);
+            customerRepository.save(existingCustomerEntity);
+            System.out.println("Customer " + existingCustomerEntity + " have been changed!" );
+        } else {
+            throw new RuntimeException("CustomerEntity not found");
+        }
+    }
 
 
-//    public void delete(int id) {
-//        if (customerRepository.existsById(id)) {
-//            CustomerEntity customerEntityToDelete = getById(id);
-//            customerRepository.deleteById(id);
-//        } else {
-//            throw new RuntimeException("CustomerEntity not found");
-//        }
-//    }
+    public void delete(int id) {
+            customerRepository.deleteById(id);
+    }
 //
 //
 //    public CustomerEntity getACustomer(){
