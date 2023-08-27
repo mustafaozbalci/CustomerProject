@@ -1,9 +1,13 @@
 package Customer.FirstProject.mapper;
 
 import Customer.FirstProject.Dto.ProductDto;
+import Customer.FirstProject.entities.customer.CustomerEntity;
 import Customer.FirstProject.entities.store.ProductEntity;
+import Customer.FirstProject.requests.Update.UpdateCustomerRequest;
+import Customer.FirstProject.requests.Update.UpdateProductRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
@@ -15,4 +19,7 @@ public interface ProductMapper {
     ProductEntity toEntity(ProductDto productDto);
 
     ProductMapper INSTANCE = Mappers.getMapper(ProductMapper.class);
+
+    @Mapping(target = "productId", ignore = true)
+    void UpdateProductByRequest(UpdateProductRequest request, @MappingTarget ProductEntity productEntity);
 }
