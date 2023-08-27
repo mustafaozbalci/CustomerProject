@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CreateStockRequest {
-    private Integer quantity;
+    private int quantity;
 }
 /**
  * AN EXAMPLE JSON TO ADD Stock

@@ -19,8 +19,6 @@ public interface CustomerMapper {
     CustomerEntity toEntity(CustomerDto customerDto);
 
 
-
-
     @Mapping(target = "customerId", ignore = true)
-    void updateCustomerFromRequest(UpdateCustomerRequest request, @MappingTarget CustomerEntity customerEntity);
+    void UpdateCustomerFromRequest(UpdateCustomerRequest request, @MappingTarget CustomerEntity customerEntity);
 }

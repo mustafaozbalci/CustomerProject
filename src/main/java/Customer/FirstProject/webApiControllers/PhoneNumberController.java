@@ -19,6 +19,7 @@ public class PhoneNumberController {
         phoneNumberDto.setPhoneNumber(phoneNumberRequest.getPhoneNumber());
         phoneNumberService.addPhoneNumber(phoneNumberDto);
     }
+
     @GetMapping("/{phoneNumberId}")
     public PhoneNumberDto getPhoneNumberById(@PathVariable int phoneNumberId) {
         PhoneNumberDto phoneNumberDto = phoneNumberService.getPhoneNumberById(phoneNumberId);
@@ -34,7 +35,7 @@ public class PhoneNumberController {
 
     @DeleteMapping("/{phoneNumberId}")
     public void deleteCustomer(@PathVariable int phoneNumberId) {
-        phoneNumberService.delete(phoneNumberId);
+        phoneNumberService.deletePhone(phoneNumberId);
     }
 
 }

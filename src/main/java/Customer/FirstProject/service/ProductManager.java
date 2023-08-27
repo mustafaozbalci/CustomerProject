@@ -24,29 +24,30 @@ public class ProductManager implements ProductService {
 
     public ProductDto getProduct(int productId) {
         ProductEntity productEntity = productRepository.findById(productId).orElse(null);
+        if (productEntity == null)
+            throw new RuntimeException("ProductEntity ID : " + productId + " Not Found!");
         return productMapper.toDto(productEntity);
     }
 
-    public void delete(int productId) {
+    public void deleteProduct(int productId) {
         if (productRepository.existsById(productId)) {
-            ProductDto productToDelete = getProduct(productId);
-            productRepository.delete(productMapper.toEntity(productToDelete));
+            productRepository.deleteById(productId);
             System.out.println("ProductEntity ID : " + productId + " Deleted Successfully");
 
         } else {
-            throw new RuntimeException("ProductEntity ID : " + productId + " not found");
+            throw new RuntimeException("ProductEntity ID : " + productId + " Not Found!");
         }
     }
 
     public void updateProduct(int productId, UpdateProductRequest updateProductRequest) {
         ProductDto productDto = getProduct(productId);
-        ProductEntity existingProductEntity = productMapper.toEntity(productDto);
+        ProductEntity productEntity = productMapper.toEntity(productDto);
         if (productDto != null) {
-            productMapper.UpdateProductByRequest(updateProductRequest, existingProductEntity);
-            productRepository.save(existingProductEntity);
+            productMapper.UpdateProductByRequest(updateProductRequest, productEntity);
+            productRepository.save(productEntity);
             System.out.println("ProductEntity ID : " + productId + " Updated Successfully");
         } else {
-            throw new RuntimeException("ProductEntity not found, Update failed ");
+            throw new RuntimeException("ProductEntity ID : " + productId + "Not Found!, Update failed ");
         }
     }
 

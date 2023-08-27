@@ -8,7 +8,7 @@ public interface ProductService {
 
     ProductDto getProduct(int productId);
 
-    void delete(int id);
+    void deleteProduct(int id);
 
     void updateProduct(int productId, UpdateProductRequest updateProductRequest);
 }

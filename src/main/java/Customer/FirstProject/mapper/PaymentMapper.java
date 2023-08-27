@@ -16,5 +16,5 @@ public interface PaymentMapper {
 
     PaymentMapper INSTANCE = Mappers.getMapper(PaymentMapper.class);
     @Mapping(target = "paymentId" , ignore = true)
-    void UpdatePaymentByRequest(UpdatePaymentRequest updatePaymentRequest, @MappingTarget PaymentEntity paymentEntity);
+    void UpdatePaymentByRequest(UpdatePaymentRequest updatePaymentRequest, @MappingTarget PaymentEntity paymentEntity) ;
 }

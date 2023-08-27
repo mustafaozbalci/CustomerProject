@@ -8,9 +8,9 @@ public interface EmailService {
 
     void addEmail(EmailDto emailDto);
 
-    EmailDto getEmailById(int emailId);
+    EmailDto getEmail(int emailId);
 
-    void delete(int emailId);
+    void deleteEmail(int emailId);
 
     void updateEmail(int emailId, UpdateEmailRequest updateEmailRequest);
 

@@ -1,9 +1,7 @@
 package Customer.FirstProject.mapper;
 
 import Customer.FirstProject.Dto.ProductDto;
-import Customer.FirstProject.entities.customer.CustomerEntity;
 import Customer.FirstProject.entities.store.ProductEntity;
-import Customer.FirstProject.requests.Update.UpdateCustomerRequest;
 import Customer.FirstProject.requests.Update.UpdateProductRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

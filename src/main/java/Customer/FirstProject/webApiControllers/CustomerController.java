@@ -43,10 +43,7 @@ public class CustomerController {
 
     @DeleteMapping("/{customerId}")
     public void deleteCustomer(@PathVariable int customerId) {
-        if (customerService.checkIfIdExists(customerId))
-            customerService.delete(customerId);
-        else
-            throw new RuntimeException("Customer delete Failed...");
+        customerService.deleteCustomer(customerId);
     }
 }
 

@@ -23,33 +23,38 @@ public class PhoneNumberManager implements PhoneNumberService {
         } else {
             phoneNumberRepository.save(phoneNumberEntity);
         }
-        System.out.println("Phone number added : " + phoneNumberEntity);
+        System.out.println("PhoneNumber : " + phoneNumberEntity + " Successfully Added.");
     }
 
     public PhoneNumberDto getPhoneNumberById(int phoneNumberId) {
         PhoneNumberEntity phoneNumberEntity = phoneNumberRepository.findById(phoneNumberId).orElse(null);
+        if (phoneNumberEntity == null)
+            throw new RuntimeException("PhoneNumberEntity Id " + phoneNumberId + " Not Found!");
         return phoneNumberMapper.toDto(phoneNumberEntity);
     }
 
-    public void updatePhoneNumber(int phoneNumberId, UpdatePhoneNumberRequest updatePhoneNumberRequest) {
-        PhoneNumberEntity existingPhoneNumberEntity = phoneNumberMapper.toEntity(getPhoneNumberById(phoneNumberId));
-
-        if (existingPhoneNumberEntity != null) {
-            phoneNumberMapper.updatePhoneNumberFromRequest(updatePhoneNumberRequest, existingPhoneNumberEntity);
-            phoneNumberRepository.save(existingPhoneNumberEntity);
-        } else {
-            throw new RuntimeException("Phone Number not found");
-        }
-        System.out.println("Phone Number " + phoneNumberId + " Successfully Updated to : " + updatePhoneNumberRequest.getPhoneNumber());
-    }
-
-    public void delete(int phoneNumberId) {
-        if (checkIfphoneNumberIdExists(phoneNumberId)) {
+    public void deletePhone(int phoneNumberId) {
+        if (phoneNumberRepository.existsById(phoneNumberId)) {
             phoneNumberRepository.deleteById(phoneNumberId);
-            System.out.println("Phone Number " + phoneNumberId + " Successfully Deleted!");
-        } else
-            throw new RuntimeException("Phone Number Delete Failed");
+            System.out.println("PhoneNumberEntity ID : " + phoneNumberId + " Deleted Successfully");
+
+        } else {
+            throw new RuntimeException("PhoneNumberEntity ID : " + phoneNumberId + " Not Found!");
+        }
     }
+
+    public void updatePhoneNumber(int phoneNumberId, UpdatePhoneNumberRequest updatePhoneNumberRequest) {
+        PhoneNumberDto phoneNumberDto = getPhoneNumberById(phoneNumberId);
+        PhoneNumberEntity phoneNumberEntity = phoneNumberMapper.toEntity(phoneNumberDto);
+        if (phoneNumberDto != null) {
+            phoneNumberMapper.UpdatePhoneNumberByRequest(updatePhoneNumberRequest, phoneNumberEntity);
+            phoneNumberRepository.save(phoneNumberEntity);
+            System.out.println("PhoneNumberEntity ID : " + phoneNumberId + " Updated Successfully");
+        } else {
+            throw new RuntimeException("PhoneNumberEntity ID " + phoneNumberId + " Not Found!, Update Failed ");
+        }
+    }
+
 
     public boolean checkIfphoneNumberIdExists(int phoneNumberId) {
         if (phoneNumberRepository.existsById(phoneNumberId))

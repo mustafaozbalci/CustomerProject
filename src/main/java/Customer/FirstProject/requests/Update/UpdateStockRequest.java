@@ -9,7 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UpdateProductRequest {
-    private double price;
-    private String productName;
+public class UpdateStockRequest {
+    private int quantity;
 }

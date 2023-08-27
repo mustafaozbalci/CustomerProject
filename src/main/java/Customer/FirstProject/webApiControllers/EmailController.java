@@ -18,18 +18,14 @@ public class EmailController {
         if (!emailService.checkIfEmailAdressExists(createEmailRequest.getEmailAddress())) {
             EmailDto emailDto = new EmailDto();
             emailDto.setEmailAddress(createEmailRequest.getEmailAddress());
-
             emailService.addEmail(emailDto);
-
-            System.out.println("Adding EmailEntity " + createEmailRequest.getEmailAddress() + " Successfully...");
         }
     }
 
 
-
     @GetMapping("/{emailId}")
     public EmailDto getEmailById(@PathVariable int emailId) {
-        EmailDto emailDto = emailService.getEmailById(emailId);
+        EmailDto emailDto = emailService.getEmail(emailId);
         return emailDto;
     }
 
@@ -40,9 +36,6 @@ public class EmailController {
 
     @DeleteMapping("/{emailId}")
     public void deleteEmail(@PathVariable int emailId) {
-        if (emailService.getEmailById(emailId) == null)
-            emailService.delete(emailId);
-        else
-            throw new RuntimeException("Delete " + emailId + " Failed...");
+        emailService.deleteEmail(emailId);
     }
 }

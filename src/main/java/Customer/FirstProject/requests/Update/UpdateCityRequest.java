@@ -7,9 +7,8 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Setter
-public class UpdateProductRequest {
-    private double price;
-    private String productName;
+@Getter
+public class UpdateCityRequest {
+    private String cityName;
 }

@@ -18,6 +18,6 @@ public interface PhoneNumberMapper {
     PhoneNumberMapper INSTANCE = Mappers.getMapper(PhoneNumberMapper.class);
 
     @Mapping(target = "phoneNumberId", ignore = true)
-    void updatePhoneNumberFromRequest(UpdatePhoneNumberRequest request, @MappingTarget PhoneNumberEntity phoneNumberEntity);
+    void UpdatePhoneNumberByRequest(UpdatePhoneNumberRequest updatePhoneNumberRequest, @MappingTarget PhoneNumberEntity phoneNumberEntity);
 
 }

@@ -18,5 +18,5 @@ public interface EmailMapper {
     EmailMapper INSTANCE = Mappers.getMapper(EmailMapper.class);
 
     @Mapping(target = "emailId", ignore = true)
-    void updateEmailFromRequest(UpdateEmailRequest updateEmailRequest, @MappingTarget EmailEntity emailEntity);
+    void UpdateEmailFromRequest(UpdateEmailRequest updateEmailRequest, @MappingTarget EmailEntity emailEntity);
 }

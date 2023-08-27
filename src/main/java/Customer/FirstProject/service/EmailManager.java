@@ -16,43 +16,45 @@ public class EmailManager implements EmailService {
     private final EmailMapper emailMapper;
 
 
-    public boolean checkIfEmailAdressExists(String emailAddress) {
-        if (emailRepository.existsByEmailAddress(emailAddress))
-            throw new RuntimeException("This emailAddress " + emailAddress + " Already Exists");
-        return false;
-    }
-
     public void addEmail(EmailDto emailDto) {
         if (checkIfEmailAdressExists(emailDto.getEmailAddress())) {
             throw new RuntimeException("This Email " + emailDto.getEmailAddress() + " Already Exists");
         }
         EmailEntity emailEntity = emailMapper.toEntity(emailDto);
         emailRepository.save(emailEntity);
+        System.out.println("Email : " + emailEntity + " Successfully Added.");
     }
 
-    public EmailDto getEmailById(int emailId) {
+    public EmailDto getEmail(int emailId) {
         EmailEntity emailEntity = emailRepository.findById(emailId).orElse(null);
+        if (emailEntity == null)
+            throw new RuntimeException("EmailEntity ID : " + emailId + " Not Found!");
         return emailMapper.toDto(emailEntity);
     }
 
-    public void delete(int emailId) {
+    public void deleteEmail(int emailId) {
         if (emailRepository.existsById(emailId)) {
-            EmailEntity emailEntityToDelete = emailMapper.toEntity(getEmailById(emailId));
-            emailRepository.delete(emailEntityToDelete);
+            emailRepository.deleteById(emailId);
+            System.out.println("EmailEntity ID :  " + emailId + " Deleted Successfully");
         } else {
-            throw new RuntimeException("EmailEntity not found");
+            throw new RuntimeException("EmailEntity ID : " + emailId + " Not Found!");
         }
     }
 
     public void updateEmail(int emailId, UpdateEmailRequest updateEmailRequest) {
-        EmailEntity existingEmailEntity = emailMapper.toEntity(getEmailById(emailId));
+        EmailEntity existingEmailEntity = emailMapper.toEntity(getEmail(emailId));
         if (existingEmailEntity != null) {
-            emailMapper.updateEmailFromRequest(updateEmailRequest, existingEmailEntity);
+            emailMapper.UpdateEmailFromRequest(updateEmailRequest, existingEmailEntity);
             emailRepository.save(existingEmailEntity);
+            System.out.println("EmailEntity ID : " + emailId + " Updated Successfully");
         } else {
-            throw new RuntimeException("EmailEntity not found, Update failed ");
+            throw new RuntimeException("EmailEntity ID : " + emailId + " Not Found!, Update failed ");
         }
-        System.out.println("Update " + existingEmailEntity.getEmailId() + " Successfully Updated to "
-                + updateEmailRequest.getEmailAddress());
+    }
+
+    public boolean checkIfEmailAdressExists(String emailAddress) {
+        if (emailRepository.existsByEmailAddress(emailAddress))
+            throw new RuntimeException("This emailAddress " + emailAddress + " Already Exists");
+        return false;
     }
 }

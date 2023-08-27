@@ -7,9 +7,12 @@ public interface PhoneNumberService {
     void addPhoneNumber(PhoneNumberDto phoneNumberDto);
 
     PhoneNumberDto getPhoneNumberById(int phoneNumberId);
+
     void updatePhoneNumber(int phoneNumberId, UpdatePhoneNumberRequest updatePhoneNumberRequest);
+
     boolean checkIfphoneNumberIdExists(int phoneNumberId);
-    void delete(int phoneNumberId);
+
+    void deletePhone(int phoneNumberId);
 
 
 }

@@ -29,11 +29,11 @@ public class ProductController {
 
     @DeleteMapping("/{productId}")
     public void deleteProduct(@PathVariable int productId) {
-        productService.delete(productId);
+        productService.deleteProduct(productId);
     }
 
     @PatchMapping("/{productId}")
-    public void UpdateProduct(@PathVariable int productId, @RequestBody UpdateProductRequest updateProductRequest){
-        productService.updateProduct(productId,updateProductRequest);
+    public void UpdateProduct(@PathVariable int productId, @RequestBody UpdateProductRequest updateProductRequest) {
+        productService.updateProduct(productId, updateProductRequest);
     }
 }

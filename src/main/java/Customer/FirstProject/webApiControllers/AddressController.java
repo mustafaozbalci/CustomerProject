@@ -31,7 +31,7 @@ public class AddressController {
 
     @DeleteMapping("/{addressId}")
     public void deleteAddress(@PathVariable int addressId) {
-        addressService.delete(addressId);
+        addressService.deleteAddress(addressId);
     }
 
     @PatchMapping("/{addressId}")

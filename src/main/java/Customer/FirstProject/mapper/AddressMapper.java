@@ -1,11 +1,8 @@
 package Customer.FirstProject.mapper;
 
 import Customer.FirstProject.Dto.AddressDto;
-import Customer.FirstProject.Dto.CustomerDto;
 import Customer.FirstProject.entities.address.AddressEntity;
-import Customer.FirstProject.entities.customer.CustomerEntity;
 import Customer.FirstProject.requests.Update.UpdateAddressRequest;
-import Customer.FirstProject.requests.Update.UpdateCustomerRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -21,7 +18,8 @@ public interface AddressMapper {
     AddressDto toDto(AddressEntity addressEntity);
 
     AddressEntity toEntity(AddressDto addressDto);
+
     @Mapping(target = "addressId", ignore = true)
-    void updateAddressRequest(UpdateAddressRequest updateAddressRequest, @MappingTarget AddressDto addressDto);
+    void UpdateAddressRequest(UpdateAddressRequest updateAddressRequest, @MappingTarget AddressDto addressDto);
 
 }
