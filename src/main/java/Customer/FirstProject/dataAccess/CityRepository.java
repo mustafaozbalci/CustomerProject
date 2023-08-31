@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface CityRepository extends JpaRepository<CityEntity, Integer> {
     CityEntity findByCityName(String cityName);
     boolean existsByCityName(String cityName);
+    CityEntity findByCityNameAndCountryId(String cityName, int countryId);
 }

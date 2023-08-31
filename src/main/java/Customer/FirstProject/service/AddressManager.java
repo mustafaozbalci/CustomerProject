@@ -10,9 +10,14 @@ import Customer.FirstProject.entities.address.CountryEntity;
 import Customer.FirstProject.mapper.AddressMapper;
 import Customer.FirstProject.mapper.CityMapper;
 import Customer.FirstProject.mapper.CountryMapper;
+import Customer.FirstProject.requests.Update.UpdateAddressRequest;
 import Customer.FirstProject.serviceAbstracts.AddressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -80,60 +85,22 @@ public class AddressManager implements AddressService {
             throw new RuntimeException("AddressEntity ID : " + addressId + " Not Found!");
         }
     }
+        public void updateAddress(int addressId, UpdateAddressRequest updateAddressRequest) {
+            Optional<AddressEntity> existingAddress = addressRepository.findById(addressId);
+            if (existingAddress == null) {
+                throw new RuntimeException("AddressEntity ID : " + addressId + " Not Found!");
+            }
+            AddressEntity addressEntity = existingAddress.get();
+            CountryEntity byCountryName = countryRepository.findByCountryName(updateAddressRequest.getCountryName());
+            CityEntity byCityNameAndCountryId = cityRepository.findByCityNameAndCountryId(updateAddressRequest.getCityName(), byCountryName.getCountryId());
+            addressEntity.setCountryId(byCountryName.getCountryId());
+            addressEntity.setCityId(byCityNameAndCountryId.getCityId());
+            addressRepository.save(addressEntity);
 
-//    public void updateAddress(int addressId, UpdateAddressRequest updateAddressRequest) {
-//        AddressDto existingAddressDto = getAddress(addressId);
-//
-//
-//        if (existingAddressDto != null) {
-//            addressMapper.UpdateAddressRequest(updateAddressRequest, existingAddressDto);
-//
-//            AddressEntity addressEntity = addressMapper.toEntity(existingAddressDto);
-//            CityEntity cityEntity = cityRepository.findByCityName(addressEntity.getCityName());
-//            CountryEntity countryEntity = countryRepository.findByCountryName(addressEntity.getCountryName());
-//            cityMapper.UpdateCityRequest(updateAddressRequest, cityEntity);
-//            countryMapper.UpdateCountryRequest(updateAddressRequest,countryEntity);
-//            if (cityEntity == null && countryEntity != null) {
-//                cityEntity = new CityEntity();
-//                cityEntity.setCityName(addressEntity.getCityName());
-//                cityEntity.setCountryId(countryEntity.getCountryId());
-//                cityRepository.save(cityEntity);
-//                addressEntity.setCityId(cityEntity.getCityId());
-//                addressEntity.setCountryId(countryEntity.getCountryId());
-//            } else if (countryEntity == null && cityEntity != null) {
-//                countryEntity = new CountryEntity();
-//                countryEntity.setCountryName(addressEntity.getCountryName());
-//                countryRepository.save(countryEntity);
-//                addressEntity.setCountryId(countryEntity.getCountryId());
-//            } else if (countryEntity == null && cityEntity == null) {
-//                countryEntity = new CountryEntity();
-//                cityEntity = new CityEntity();
-//                countryEntity.setCountryName(addressEntity.getCountryName());
-//                countryRepository.save(countryEntity);
-//                cityEntity.setCityName(addressEntity.getCityName());
-//                cityEntity.setCountryId(countryEntity.getCountryId());
-//                cityRepository.save(cityEntity);
-//            } else {
-//                countryRepository.save(countryEntity);
-//                cityEntity.setCountryId(countryEntity.getCountryId());
-//                cityRepository.save(cityEntity);
-//                addressEntity.setCityId(cityEntity.getCityId());
-//                addressEntity.setCountryId(countryEntity.getCountryId());
-//            }
-//            addressRepository.save(addressEntity);
-//            System.out.println("Address " + addressEntity + " have been changed!");
-//        } else {
-//            throw new RuntimeException("AddressEntity not found");
-//        }
-//    }
-//    public void updateAddress(int addressId, UpdateAddressRequest updateAddressRequest) {
-//        AddressEntity existinAddressEntity = addressMapper.toEntity(getAddress(addressId));
-//        if (existinAddressEntity != null) {
-//            addressMapper.updateAddressRequest(updateAddressRequest, existinAddressEntity);
-//            addressRepository.save(existinAddressEntity);
-//            System.out.println("AddressEntity ID : " + addressId + " Updated Successfully");
-//        } else {
-//            throw new RuntimeException("AddressEntity ID : " + addressId + " Not Found!, Update failed ");
-//        }
-//    }
+
+            ArrayList arrayList = new ArrayList();
+            arrayList.stream().filter(o -> false).collect(Collectors.toList());
+    }
+
+
 }
