@@ -14,30 +14,40 @@ import org.springframework.stereotype.Service;
 public class EmailManager implements EmailService {
     private final EmailRepository emailRepository;
     private final EmailMapper emailMapper;
+    private final LogServiceImp logService;
 
 
     public void addEmail(EmailDto emailDto) {
         if (checkIfEmailAdressExists(emailDto.getEmailAddress())) {
-            throw new RuntimeException("This Email " + emailDto.getEmailAddress() + " Already Exists");
+            String errorMessage = "This Email " + emailDto.getEmailAddress() + " Already Exists";
+            logService.saveLog(errorMessage);
+            throw new RuntimeException(errorMessage);
         }
         EmailEntity emailEntity = emailMapper.toEntity(emailDto);
         emailRepository.save(emailEntity);
-        System.out.println("Email : " + emailEntity + " Successfully Added.");
+        String successMessage = "Email : " + emailEntity + " Successfully Added.";
+        logService.saveLog(successMessage);
     }
 
     public EmailDto getEmail(int emailId) {
         EmailEntity emailEntity = emailRepository.findById(emailId).orElse(null);
-        if (emailEntity == null)
-            throw new RuntimeException("EmailEntity ID : " + emailId + " Not Found!");
+        if (emailEntity == null) {
+            String errorMessage = "EmailEntity ID : " + emailId + " Not Found!, GetMapping Failed.";
+            logService.saveLog(errorMessage);
+            throw new RuntimeException(errorMessage);
+        }
         return emailMapper.toDto(emailEntity);
     }
 
     public void deleteEmail(int emailId) {
         if (emailRepository.existsById(emailId)) {
             emailRepository.deleteById(emailId);
-            System.out.println("EmailEntity ID :  " + emailId + " Deleted Successfully");
+            String successMessage = "EmailEntity ID :  " + emailId + " Deleted Successfully";
+            logService.saveLog(successMessage);
         } else {
-            throw new RuntimeException("EmailEntity ID : " + emailId + " Not Found!");
+            String errorMessage = "EmailEntity ID : " + emailId + " Not Found!, Delete Failed.";
+            logService.saveLog(errorMessage);
+            throw new RuntimeException(errorMessage);
         }
     }
 
@@ -46,9 +56,12 @@ public class EmailManager implements EmailService {
         if (existingEmailEntity != null) {
             emailMapper.UpdateEmailFromRequest(updateEmailRequest, existingEmailEntity);
             emailRepository.save(existingEmailEntity);
-            System.out.println("EmailEntity ID : " + emailId + " Updated Successfully");
+            String successMessage = "EmailEntity ID : " + emailId + " Updated Successfully";
+            logService.saveLog(successMessage);
         } else {
-            throw new RuntimeException("EmailEntity ID : " + emailId + " Not Found!, Update failed ");
+            String errorMessage = "EmailEntity ID : " + emailId + " Not Found!, Update failed.";
+            logService.saveLog(errorMessage);
+            throw new RuntimeException(errorMessage);
         }
     }
 

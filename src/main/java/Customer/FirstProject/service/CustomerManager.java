@@ -1,7 +1,6 @@
 package Customer.FirstProject.service;
 
 import Customer.FirstProject.Dto.CustomerDto;
-import Customer.FirstProject.dataAccess.AddressRepository;
 import Customer.FirstProject.dataAccess.CustomerRepository;
 import Customer.FirstProject.entities.customer.CustomerEntity;
 import Customer.FirstProject.mapper.CustomerMapper;
@@ -15,20 +14,24 @@ import org.springframework.stereotype.Service;
 public class CustomerManager implements CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
-    private final AddressRepository addressRepository;
+    private final LogServiceImp logService;
 
 
     public void createCustomer(CustomerDto customerDto) {
         CustomerEntity customerEntity = customerMapper.toEntity(customerDto);
         customerRepository.save(customerEntity);
-        System.out.println("Customer : " + customerEntity + " Created Successfully");
+        String successMessage = "Customer : " + customerEntity + " Created Successfully";
+        logService.saveLog(successMessage);
     }
 
 
     public CustomerDto getCustomer(int customerId) {
         CustomerEntity customerEntity = customerRepository.findById(customerId).orElse(null);
-        if(customerEntity == null)
-            throw new RuntimeException("CustomerEntity ID : " + customerId + " Not Found!");
+        if (customerEntity == null) {
+            String errorMessage = "CustomerEntity ID : " + customerId + " Not Found!, GetMapping Failed.";
+            logService.saveLog(errorMessage);
+            throw new RuntimeException(errorMessage);
+        }
         return customerMapper.toDto(customerEntity);
     }
 
@@ -36,9 +39,12 @@ public class CustomerManager implements CustomerService {
     public void deleteCustomer(int customerId) {
         if (customerRepository.existsById(customerId)) {
             customerRepository.deleteById(customerId);
-            System.out.println("CustomerEntity ID :  " + customerId + " Deleted Successfully");
+            String successMessage = "CustomerEntity ID :  " + customerId + " Deleted Successfully";
+            logService.saveLog(successMessage);
         } else {
-            throw new RuntimeException("CustomerEntity ID : " + customerId + " Not Found!");
+            String errorMessage = "CustomerEntity ID : " + customerId + " Not Found!, Delete Failed.";
+            logService.saveLog(errorMessage);
+            throw new RuntimeException(errorMessage);
         }
     }
 
@@ -47,9 +53,12 @@ public class CustomerManager implements CustomerService {
         if (existingCustomerEntity != null) {
             customerMapper.UpdateCustomerFromRequest(updateCustomerRequest, existingCustomerEntity);
             customerRepository.save(existingCustomerEntity);
-            System.out.println("CustomerEntity ID : " + customerId + " Updated Successfully");
+            String successMessage = "CustomerEntity ID : " + customerId + " Updated Successfully";
+            logService.saveLog(successMessage);
         } else {
-            throw new RuntimeException("CustomerEntity ID : " + customerId + " Not Found!, Update failed ");
+            String errorMessage = "CustomerEntity ID : " + customerId + " Not Found!, Update Failed.";
+            logService.saveLog(errorMessage);
+            throw new RuntimeException(errorMessage);
         }
     }
 }

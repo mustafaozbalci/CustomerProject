@@ -14,32 +14,41 @@ import org.springframework.stereotype.Service;
 public class PhoneNumberManager implements PhoneNumberService {
     private final PhoneNumberRepository phoneNumberRepository;
     private final PhoneNumberMapper phoneNumberMapper;
+    private final LogServiceImp logService;
 
 
     public void addPhoneNumber(PhoneNumberDto phoneNumberDto) {
         PhoneNumberEntity phoneNumberEntity = phoneNumberMapper.toEntity(phoneNumberDto);
         if (phoneNumberRepository.existsByPhoneNumber(phoneNumberEntity.getPhoneNumber())) {
-            throw new RuntimeException("PHONE NUMBER ALREADY EXISTS");
+            String errorMessage = "PHONE NUMBER ALREADY EXISTS";
+            logService.saveLog(errorMessage);
+            throw new RuntimeException(errorMessage);
         } else {
             phoneNumberRepository.save(phoneNumberEntity);
+            String successMessage = "PhoneNumber : " + phoneNumberEntity + " Successfully Added.";
+            logService.saveLog(successMessage);
         }
-        System.out.println("PhoneNumber : " + phoneNumberEntity + " Successfully Added.");
     }
 
     public PhoneNumberDto getPhoneNumberById(int phoneNumberId) {
         PhoneNumberEntity phoneNumberEntity = phoneNumberRepository.findById(phoneNumberId).orElse(null);
-        if (phoneNumberEntity == null)
-            throw new RuntimeException("PhoneNumberEntity Id " + phoneNumberId + " Not Found!");
+        if (phoneNumberEntity == null) {
+            String errorMessage = "PhoneNumberEntity Id " + phoneNumberId + " Not Found!, GetMapping Failed.";
+            logService.saveLog(errorMessage);
+            throw new RuntimeException(errorMessage);
+        }
         return phoneNumberMapper.toDto(phoneNumberEntity);
     }
 
     public void deletePhone(int phoneNumberId) {
         if (phoneNumberRepository.existsById(phoneNumberId)) {
             phoneNumberRepository.deleteById(phoneNumberId);
-            System.out.println("PhoneNumberEntity ID : " + phoneNumberId + " Deleted Successfully");
-
+            String successMessage = "PhoneNumberEntity ID : " + phoneNumberId + " Deleted Successfully";
+            logService.saveLog(successMessage);
         } else {
-            throw new RuntimeException("PhoneNumberEntity ID : " + phoneNumberId + " Not Found!");
+            String errorMessage = "PhoneNumberEntity ID : " + phoneNumberId + " Not Found!, Delete Failed.";
+            logService.saveLog(errorMessage);
+            throw new RuntimeException(errorMessage);
         }
     }
 
@@ -49,9 +58,12 @@ public class PhoneNumberManager implements PhoneNumberService {
         if (phoneNumberDto != null) {
             phoneNumberMapper.UpdatePhoneNumberByRequest(updatePhoneNumberRequest, phoneNumberEntity);
             phoneNumberRepository.save(phoneNumberEntity);
-            System.out.println("PhoneNumberEntity ID : " + phoneNumberId + " Updated Successfully");
+            String successMessage = "PhoneNumberEntity ID : " + phoneNumberId + " Updated Successfully";
+            logService.saveLog(successMessage);
         } else {
-            throw new RuntimeException("PhoneNumberEntity ID " + phoneNumberId + " Not Found!, Update Failed ");
+            String errorMessage = "PhoneNumberEntity ID " + phoneNumberId + " Not Found!, Update Failed. ";
+            logService.saveLog(errorMessage);
+            throw new RuntimeException(errorMessage);
         }
     }
 

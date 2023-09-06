@@ -8,16 +8,12 @@ import Customer.FirstProject.entities.address.AddressEntity;
 import Customer.FirstProject.entities.address.CityEntity;
 import Customer.FirstProject.entities.address.CountryEntity;
 import Customer.FirstProject.mapper.AddressMapper;
-import Customer.FirstProject.mapper.CityMapper;
-import Customer.FirstProject.mapper.CountryMapper;
 import Customer.FirstProject.requests.Update.UpdateAddressRequest;
 import Customer.FirstProject.serviceAbstracts.AddressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -25,9 +21,8 @@ public class AddressManager implements AddressService {
     private final AddressRepository addressRepository;
     private final AddressMapper addressMapper;
     private final CityRepository cityRepository;
-    private final CityMapper cityMapper;
     private final CountryRepository countryRepository;
-    private final CountryMapper countryMapper;
+    private final LogServiceImp logService;
 
 
     public void createAddress(AddressDto addressDto) {
@@ -65,41 +60,49 @@ public class AddressManager implements AddressService {
             cityEntity.setCountryId(addressEntity.getCountryId());
             addressEntity.setCityId(cityEntity.getCityId());
         }
-        addressRepository.save(addressEntity);
-        System.out.println("Address " + addressEntity + " Successfully Created!");
+            addressRepository.save(addressEntity);
+            String successMessage = "Address " + addressEntity + " Successfully Created!";
+            logService.saveLog(successMessage);
     }
 
     public AddressDto getAddress(int addressId) {
         AddressEntity addressEntity = addressRepository.findById(addressId).orElse(null);
-        if (addressEntity == null)
-            throw new RuntimeException("AddressEntity ID : " + addressId + " Not Found!");
+        if (addressEntity == null) {
+            String errorMessage = "AddressEntity ID : " + addressId + " Not Found!, GetMapping failed.";
+            logService.saveLog(errorMessage);
+            throw new RuntimeException(errorMessage);
+        }
         return addressMapper.toDto(addressEntity);
+
     }
 
 
     public void deleteAddress(int addressId) {
         if (addressRepository.existsById(addressId)) {
             addressRepository.deleteById(addressId);
-            System.out.println("AddressEntity ID :  " + addressId + " Deleted Successfully");
+            String successMessage = "AddressEntity ID :  " + addressId + " Deleted Successfully";
+            logService.saveLog(successMessage);
         } else {
-            throw new RuntimeException("AddressEntity ID : " + addressId + " Not Found!");
+            String errorMessage = "AddressEntity ID : " + addressId + " Not Found!,Delete Failed.";
+            logService.saveLog(errorMessage);
         }
     }
-        public void updateAddress(int addressId, UpdateAddressRequest updateAddressRequest) {
-            Optional<AddressEntity> existingAddress = addressRepository.findById(addressId);
-            if (existingAddress == null) {
-                throw new RuntimeException("AddressEntity ID : " + addressId + " Not Found!");
-            }
-            AddressEntity addressEntity = existingAddress.get();
-            CountryEntity byCountryName = countryRepository.findByCountryName(updateAddressRequest.getCountryName());
-            CityEntity byCityNameAndCountryId = cityRepository.findByCityNameAndCountryId(updateAddressRequest.getCityName(), byCountryName.getCountryId());
-            addressEntity.setCountryId(byCountryName.getCountryId());
-            addressEntity.setCityId(byCityNameAndCountryId.getCityId());
-            addressRepository.save(addressEntity);
 
+    public void updateAddress(int addressId, UpdateAddressRequest updateAddressRequest) {
+        Optional<AddressEntity> existingAddress = addressRepository.findById(addressId);
+        if (existingAddress == null) {
+            String errorMessage = "AddressEntity ID : " + addressId + " Not Found!, Update Failed.";
+            logService.saveLog(errorMessage);
+        }
+        AddressEntity addressEntity = existingAddress.get();
+        CountryEntity byCountryName = countryRepository.findByCountryName(updateAddressRequest.getCountryName());
+        CityEntity byCityNameAndCountryId = cityRepository.findByCityNameAndCountryId(updateAddressRequest.getCityName(), byCountryName.getCountryId());
+        addressEntity.setCountryId(byCountryName.getCountryId());
+        addressEntity.setCityId(byCityNameAndCountryId.getCityId());
+        addressRepository.save(addressEntity);
+        String successMessage = "AddressEntity ID :  " + addressId + " Updated Successfully";
+        logService.saveLog(successMessage);
 
-            ArrayList arrayList = new ArrayList();
-            arrayList.stream().filter(o -> false).collect(Collectors.toList());
     }
 
 

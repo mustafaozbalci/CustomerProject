@@ -14,27 +14,35 @@ import org.springframework.stereotype.Service;
 public class PaymentManager implements PaymentService {
     private final PaymentRepository paymentRepository;
     private final PaymentMapper paymentMapper;
+    private final LogServiceImp logService;
 
     public void addPayment(PaymentDto paymentDto) {
         PaymentEntity paymentEntity = paymentMapper.toEntity(paymentDto);
         paymentRepository.save(paymentEntity);
-        System.out.println("Payment : " + paymentEntity + " Successfully Added.");
+        String successMessage = "Payment : " + paymentEntity + " Successfully Added.";
+        logService.saveLog(successMessage);
     }
 
     public PaymentDto getPaymentById(int paymentId) {
         PaymentEntity paymentEntity = paymentRepository.findById(paymentId).orElse(null);
-        if (paymentEntity == null)
-            throw new RuntimeException("PaymentEntity ID : " + paymentId + " Not Found! ");
+        if (paymentEntity == null) {
+            String errorMessage = "PaymentEntity ID : " + paymentId + " Not Found!, GetMapping Failed.";
+            logService.saveLog(errorMessage);
+            throw new RuntimeException(errorMessage);
+        }
         return paymentMapper.toDto(paymentEntity);
     }
 
     public void deletePayment(int paymentId) {
         if (paymentRepository.existsById(paymentId)) {
             paymentRepository.deleteById(paymentId);
-            System.out.println("PaymentEntity ID :  " + paymentId + " Deleted Successfully");
+            String successMessage = "PaymentEntity ID :  " + paymentId + " Deleted Successfully";
+            logService.saveLog(successMessage);
 
         } else {
-            throw new RuntimeException("PaymentEntity ID :  " + paymentId + " Not Found!");
+            String errorMessage = "PaymentEntity ID :  " + paymentId + " Not Found!, Delete Failed.";
+            logService.saveLog(errorMessage);
+            throw new RuntimeException(errorMessage);
         }
     }
 
@@ -44,9 +52,12 @@ public class PaymentManager implements PaymentService {
         if (paymentDto != null) {
             paymentMapper.UpdatePaymentByRequest(updatePaymentRequest, paymentEntity);
             paymentRepository.save(paymentEntity);
-            System.out.println("PaymentEntity ID : " + paymentId + " Updated Successfully");
+            String successMessage = "PaymentEntity ID : " + paymentId + " Updated Successfully";
+            logService.saveLog(successMessage);
         } else {
-            throw new RuntimeException("PaymentEntity ID :  " + paymentId + " Not Found!, Update Failed ");
+            String errorMessage = "PaymentEntity ID :  " + paymentId + " Not Found!, Update Failed.";
+            logService.saveLog(errorMessage);
+            throw new RuntimeException(errorMessage);
         }
     }
 }

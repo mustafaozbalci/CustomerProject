@@ -1,5 +1,7 @@
 package Customer.FirstProject;
 
+import Customer.FirstProject.entities.address.AddressEntity;
+import org.junit.Test;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

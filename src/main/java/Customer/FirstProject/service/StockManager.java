@@ -14,27 +14,34 @@ import org.springframework.stereotype.Service;
 public class StockManager implements StockService {
     private final StockRepository stockRepository;
     private final StockMapper stockMapper;
+    private final LogServiceImp logService;
 
     public void addStock(StockDto stockDto) {
         StockEntity stockEntity = stockMapper.toEntity(stockDto);
         stockRepository.save(stockEntity);
-        System.out.println("Stock : " + stockEntity + " Created Successfully");
+        String successMessage = "Stock : " + stockEntity + " Created Successfully";
+        logService.saveLog(successMessage);
     }
 
     public StockDto getStock(int stockId) {
         StockEntity stockEntity = stockRepository.findById(stockId).orElse(null);
-        if (stockEntity == null)
-            throw new RuntimeException("StockEntity ID : " + stockId + " Not Found!");
+        if (stockEntity == null) {
+            String errorMessage = "StockEntity ID : " + stockId + " Not Found!, GetMapping Failed.";
+            logService.saveLog(errorMessage);
+            throw new RuntimeException(errorMessage);
+        }
         return stockMapper.toDto(stockEntity);
     }
 
     public void deleteStock(int stockId) {
         if (stockRepository.existsById(stockId)) {
             stockRepository.deleteById(stockId);
-            System.out.println("StockEntity ID : " + stockId + " Deleted Successfully");
-
+            String successMessage = "StockEntity ID : " + stockId + " Deleted Successfully";
+            logService.saveLog(successMessage);
         } else {
-            throw new RuntimeException("StockEntity ID : " + stockId + " Not Found!");
+            String errorMessage = "StockEntity ID : " + stockId + " Not Found!, Delete Failed.";
+            logService.saveLog(errorMessage);
+            throw new RuntimeException(errorMessage);
         }
     }
 
@@ -44,9 +51,12 @@ public class StockManager implements StockService {
         if (stockDto != null) {
             stockMapper.UpdateStockByRequest(updateStockRequest, stockEntity);
             stockRepository.save(stockEntity);
-            System.out.println("StockEntity ID : " + stockId + " Updated Successfully");
+            String successMessage = "StockEntity ID : " + stockId + " Updated Successfully";
+            logService.saveLog(successMessage);
         } else {
-            throw new RuntimeException("StockEntity ID : " + stockId + "Not Found!, Update failed ");
+            String errorMessage = "StockEntity ID : " + stockId + "Not Found!, Update Failed. ";
+            logService.saveLog(errorMessage);
+            throw new RuntimeException(errorMessage);
         }
     }
 
